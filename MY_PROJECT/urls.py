@@ -17,7 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+def home(request):
+    from django.shortcuts import redirect
+    return redirect('accounts:profile')
+
 urlpatterns = [
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('art/', include('art.urls')),                          
