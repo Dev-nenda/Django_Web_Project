@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Art Column List</h1>
+
+<ul>
+    {% for art in arts  %} 
+    <li>
+        <a href="{% url 'accounts:profile' art.author.username %}">
+            {{ art.author.username }}
+        </a>
+        <a href="{% url 'art:art_detail' art.pk %}">
+            {{ art.title }}
+        </a>
+    </li>
+    
+    {% endfor %}
+</ul>
+{% endblock content %}

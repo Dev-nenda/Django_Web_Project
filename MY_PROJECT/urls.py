@@ -19,7 +19,7 @@ from django.urls import path, include
 
 def home(request):
     from django.shortcuts import redirect
-    return redirect('accounts:profile')
+    return redirect('art:art_index')
 
 urlpatterns = [
     path('', home, name='home'),

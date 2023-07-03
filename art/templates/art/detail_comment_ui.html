@@ -1,0 +1,27 @@
+{% if user.is_authenticated %}
+<form action="{% url 'art:create_comment' art.pk %}" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button>작성</button>
+</form>
+{% endif %}
+
+<hr>
+
+<ul>
+    {% for comment in comments  %}
+    <li>
+        <a href="{% url 'accounts:profile' comment.author.username %}">
+            {{comment.author.username}}
+        </a>
+        :{{ comment.content}}
+
+        {% if user == comment.author %}
+        <form action="{% url 'art:delete_comment' art.pk comment.pk %}" method="POST">
+            {% csrf_token %}
+            <button>❌</button>
+        </form>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>

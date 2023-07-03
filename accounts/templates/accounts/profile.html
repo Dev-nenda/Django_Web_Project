@@ -3,5 +3,28 @@
 {% block content %}
 <h1>{{profile_user.username}}의 프로필</h1>
 
+<h2>작성글</h2>
+<ul>
+    {% for art in profile_user.arts.all  %}
+    <li>
+        <a href="{% url 'art:art_detail' art.pk %}">
+            {{ art.title }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+
+
+<h2>스크랩</h2>
+<ul>
+    {% for art in profile_user.clipping_arts.all %}
+        <li>
+            <a href="{% url 'art:art_detail' art.pk %}">
+                {{ art.title }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
 
 {% endblock content %}

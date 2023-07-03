@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{art.title}}</h1>
+<h2>{{art.author.username}}</h2>
+
+<p>{{art.content | linebreaksbr }}</p>
+<!--수정, 삭제, 좋아요 버튼-->
+{% include 'art/detail_ui.html' %}
+<hr>
+<!--댓글 UI-->
+{% include 'art/detail_comment_ui.html' %}
+
+{% endblock content %}

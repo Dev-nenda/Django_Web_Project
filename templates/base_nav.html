@@ -1,6 +1,27 @@
 <nav>
     <ul>
-        <li>Home</li>
-        <li>New</li>
+        <li>
+            <a href="{% url 'home' %}">home</a>
+        </li>
+
+        {% if user.is_authenticated %}
+        <li>
+            <a href="{% url 'art:create_art' %}">칼럼작성하기</a>
+        </li>
+        <li>
+            <a href="{% url 'accounts:profile' user %}">{{user}}의 프로필</a>
+        </li>
+        <li>    
+            <a href="{% url 'accounts:logout' %}">로그아웃</a>
+        </li>
+        {% else %}
+        <li>
+            <a href="{% url 'accounts:signup' %}">회원가입</a>
+        </li>
+        <li>
+            <a href="{% url 'accounts:login' %}">로그인</a>
+        </li>
+        {% endif %}
+        
     </ul>
 </nav>
