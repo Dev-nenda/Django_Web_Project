@@ -1,0 +1,29 @@
+{% if user.is_authenticated %}
+<form action="{% url 'exhibition:create_general_review' exhibition.pk %}" method="POST">
+    {% csrf_token %}
+    {{ general_form }}
+    <button>작성</button>
+</form>
+
+{% endif %}
+
+<hr>
+
+<ul>
+    {% for general_review in general_reviews %}
+    <li>
+        <a href="{% url 'accounts:profile' general_review.author.username %}">
+            {{general_review.author.username}}
+        </a>
+        : {{ general_review.content}}
+        {{general_review.score}}
+
+        {% if user == general_review.author %}
+        <form action="{% url 'exhibition:delete_general_review' exhibition.pk general_review.pk %}" method="POST">
+            {% csrf_token %}
+            <button>❌</button>
+        </form>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>

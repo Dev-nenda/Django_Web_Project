@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Exhibitions</h1>
+
+<ul>
+    {% for exhibition in Exhibitions  %}
+    <li>
+        <a href="{% url 'accounts:profile' exhibition.owner.username %}">
+            {{exhibition.owner.username}}
+        </a>
+        <a href="{% url 'exhibition:exhibition_detail' exhibition.pk %}">
+            {{exhibition.title}}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}

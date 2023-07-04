@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{exhibition.title}}</h1>
+<h2>{{exhibition.owner}}</h2>
+<h2>{{exhibition.artist}}</h2>
+<h2>{{exhibition.schedule}}</h2>
+
+<p>{{exhibition.introduction | linebreaksbr}}</p>
+
+<hr>
+
+<p>{{exhibition.location}}</p>
+<p>{{exhibition.ticketing}}</p>
+
+<p>전문가 평점: {{expert_score}}</p>
+<p>회원 평점 :{{general_score}}</p>
+
+<hr>
+<!--수정, 삭제, 좋아요-->
+{% include 'exhibition/detail_ui.html' %}
+
+<hr>
+<!--리뷰 UI-->
+
+{% include 'exhibition/detail_expert_review_ui.html' %}
+{% include 'exhibition/detail_general_review_ui.html' %}
+
+{% endblock content %}
