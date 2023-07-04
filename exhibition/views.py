@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Exhibition, Expert_review, General_review
 from .forms import ExhibitionForm, Expert_reviewForm, General_reviewForm
 
-from django.db.models import Avg, Min, Max
+from django.db.models import Avg
+
 
 @login_required
 @require_http_methods(['GET','POST'])
