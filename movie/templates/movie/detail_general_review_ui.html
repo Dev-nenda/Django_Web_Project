@@ -1,5 +1,5 @@
 {% if user.is_authenticated %}
-<form action="{% url 'exhibition:create_general_review' exhibition.pk %}" method="POST">
+<form action="{% url 'movie:create_general_review' movie.pk %}"method="POST">
     {% csrf_token %}
     {{ general_form }}
     <button>작성</button>
@@ -10,21 +10,24 @@
 <hr>
 
 <ul>
-    {% for general_review in general_reviews %}
+    {% for general_review in general_reviews  %}
     <li>
         <a href="{% url 'accounts:profile' general_review.author.username %}">
-            {{general_review.author.username}}
+            {{general_review.author.username }}
         </a>
         : {{ general_review.content}} |
 
-        평점 :{{general_review.score}}
+        평점 :{{ general_review.score }}
 
         {% if user == general_review.author %}
-        <form action="{% url 'exhibition:delete_general_review' exhibition.pk general_review.pk %}" method="POST">
+        <form action="{% url 'movie:delete_general_review' movie.pk general_review.pk %}" method="POST">
             {% csrf_token %}
             <button>❌</button>
         </form>
+        
         {% endif %}
     </li>
+
+
     {% endfor %}
-</ul>
+    </ul>

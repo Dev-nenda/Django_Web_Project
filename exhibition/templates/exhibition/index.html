@@ -4,7 +4,7 @@
 <h1>Exhibitions</h1>
 
 <ul>
-    {% for exhibition in Exhibitions  %}
+    {% for exhibition in exhibitions  %}
     <li>
         <a href="{% url 'accounts:profile' exhibition.owner.username %}">
             {{exhibition.owner.username}}

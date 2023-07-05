@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{movie.title}}</h1>
+<p>감독:{{movie.director}}</p>
+<p>출연진:{{movie.cast}}</p>
+<p>소개:{{movie.introduction}}</p>
+{% if movie.on_showing == True %}
+<p>
+    <a href="{{movie.ticketing}}">{{movie.ticketing}}</a>
+</p>
+{% endif %}
+<p>전문가평점: {{expert_score}}</p>
+<p>회원 평점: {{general_score}}</p>
+
+<hr>
+<!--수정, 삭제, 좋아요-->
+{% include 'movie/detail_ui.html' %}
+
+<hr>
+
+<!--리뷰 UI-->
+{% include 'movie/detail_expert_review_ui.html' %}
+{% include 'movie/detail_general_review_ui.html' %}
+
+
+{% endblock content %}

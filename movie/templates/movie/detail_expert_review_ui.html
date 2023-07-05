@@ -1,0 +1,31 @@
+{% if user.is_authenticated %}
+<form action="{% url 'movie:create_expert_review' movie.pk %}" method="POST">
+    {% csrf_token %}
+    {{ expert_form }}
+    <button>작성</button>
+</form>
+
+{% endif %}
+
+<hr>
+
+<ul>
+    {% for expert_review in expert_reviews %}
+    <li>
+        <a href="{% url 'accounts:profile' expert_review.author.username %}">
+            {{expert_review.author.username}}
+        </a>
+        : 
+        {{ expert_review.content}} |
+        
+        평점 :{{expert_review.score}}
+
+        {% if user == expert_review.author %}
+        <form action="{% url 'movie:delete_expert_review' movie.pk expert_review.pk %}" method="POST">
+            {% csrf_token %}
+            <button>❌</button>
+        </form>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>

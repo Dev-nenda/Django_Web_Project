@@ -1,0 +1,32 @@
+{% if user == movie.writer %}
+<div>
+    <a href="{% url 'movie:update_movie' movie.pk %}">
+        <button>수정하기</button>
+    </a>
+</div>
+
+<div>
+    <form action="{% url 'movie:delete_movie' movie.pk %}" method="POST">
+        {% csrf_token %}
+        <button>삭제하기</button>
+    </form>
+</div>
+
+{% endif %}
+
+{% if user.is_authenticated %}
+<div style="dispaly: inline-block;">
+    <form action="{% url 'movie:like_movie' movie.pk %}" method="POST">
+        {% csrf_token %}
+
+        {% if is_like  %}
+        <button>❤</button>        
+        {% else %}
+        <button>🤍</button>
+        {% endif %}
+
+
+    </form>
+</div>
+
+{% endif %}

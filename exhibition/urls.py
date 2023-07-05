@@ -1,4 +1,4 @@
-# exhibition/urls/py
+# exhibition/urls.py
 
 from django.urls import path
 from . import views
@@ -20,7 +20,7 @@ urlpatterns = [
     path('<int:exhibition_pk>/update/', views.update_exhibition, name='update_exhibition'),
 
     # /exhibition/1/delete/
-    path('<int:exhibition_pk>/1/delete/', views.delete_exhibition, name='delete_exhibition'),
+    path('<int:exhibition_pk>/delete/', views.delete_exhibition, name='delete_exhibition'),
 
     # /exhibition/1/expert_reviews/create/
     path('<int:exhibition_pk>/expert_reviews/create/', views.create_expert_review, name='create_expert_review'),
