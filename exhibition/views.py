@@ -30,6 +30,7 @@ def create_exhibition(request):
 @require_safe
 def exhibition_index(request):
     exhibitions = Exhibition.objects.all()
+
     return render(request, 'exhibition/index.html',{
         'exhibitions': exhibitions
     })
@@ -40,8 +41,10 @@ def exhibition_detail(request, exhibition_pk):
     expert_form = Expert_reviewForm()
     general_form = General_reviewForm()
     is_like = exhibition.like_users.filter(pk=request.user.pk).exists()
+
     expert_score = Expert_review.objects.aggregate(average_score=Avg("score"))
     general_score = General_review.objects.aggregate(average_score=Avg("score"))
+
     exeprt_reviews = exhibition.expert_reviews.all()
     general_reviews = exhibition.general_reviews.all()
 
