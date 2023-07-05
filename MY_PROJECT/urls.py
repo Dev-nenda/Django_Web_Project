@@ -27,6 +27,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('art/', include('art.urls')),  
     path('exhibition/', include('exhibition.urls')),
-    path('movie/', include('movie.urls')),                  
+    path('movie/', include('movie.urls')),    
+    path('moviecolumn/', include('moviecolumn.urls')),              
     
 ]
