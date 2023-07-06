@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 
+{% load bootstrap5 %}
+
+
 {% block content %}
+<div class='container'>
+    
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-
+        {%bootstrap_form form%}
+        
         <div>
             <button>Login</button>
         </div>
     </form>
+</div>
 {% endblock content %}

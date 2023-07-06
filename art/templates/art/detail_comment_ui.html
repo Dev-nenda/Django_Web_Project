@@ -1,7 +1,9 @@
+{% load bootstrap5 %}
 {% if user.is_authenticated %}
+
 <form action="{% url 'art:create_comment' art.pk %}" method="POST">
     {% csrf_token %}
-    {{ form }}
+    {% bootstrap_form form%}
     <button>작성</button>
 </form>
 {% endif %}
