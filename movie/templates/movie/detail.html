@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{movie.title}}</h1>
+<h1>{{movie.title}} | {{movie.hits}} </h1>
 <p>감독:{{movie.director}}</p>
 <p>출연진:{{movie.cast}}</p>
 <p>소개:{{movie.introduction}}</p>
@@ -10,8 +10,13 @@
     <a href="{{movie.ticketing}}">{{movie.ticketing}}</a>
 </p>
 {% endif %}
+
+
 <p>전문가평점: {{expert_score}}</p>
 <p>회원 평점: {{general_score}}</p>
+
+
+
 
 <hr>
 <!--수정, 삭제, 좋아요-->

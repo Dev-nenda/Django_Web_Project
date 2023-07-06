@@ -15,6 +15,8 @@ class Movie(models.Model):
     ticketing = models.URLField(blank=True)
     writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='write_movies')
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
+    hits = models.PositiveIntegerField(default= 0)
+    score = models.FloatField(null = True)
 
 class Expert_review(models.Model):
     SCORE_CHOICES = [

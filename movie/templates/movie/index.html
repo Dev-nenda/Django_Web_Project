@@ -7,7 +7,8 @@
     {% for movie in movies  %}
     <li>
         <a href="{% url 'movie:movie_detail' movie.pk %}">
-            {{movie.title}}
+            {{movie.title}} {{movie.score}}
+           
         </a>
     </li>
     

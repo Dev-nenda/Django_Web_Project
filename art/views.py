@@ -2,12 +2,18 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_safe, require_POST, require_http_methods
 from django.contrib.auth.decorators import login_required
 
+
+
 from .models import Art, Comment
 from .forms import ArtForm, CommentForm
 
 @login_required
 @require_http_methods(['GET', 'POST'])
 def create_art(request):
+    # expert_art 그룹이 아니면 홈으로 가게 만듬
+    if not request.user.groups.filter(name="expert_art").exists():
+        return redirect('home')
+    
     if request.method =='GET':
         form = ArtForm
 

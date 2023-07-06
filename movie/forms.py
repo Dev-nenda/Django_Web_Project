@@ -4,7 +4,7 @@ from .models import Movie, Expert_review, General_review
 class MovieForm(forms.ModelForm):
     class Meta:
         model = Movie
-        exclude = ('like_users', 'writer')
+        exclude = ('like_users', 'writer', 'hits', 'score')
 
 class Expert_reviewForm(forms.ModelForm):
     class Meta:

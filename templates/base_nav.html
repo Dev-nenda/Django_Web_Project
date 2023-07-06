@@ -6,6 +6,13 @@
 
         {% if user.is_authenticated %}
         <li>
+            {% for group in user.groups.all  %}
+                {% if group.name == 'expert_art' %}
+                    <a href="{% url 'art:create_art' %}">HEREWEGO</a>
+                {% endif %}
+            {% endfor %}
+        </li>
+        <li>
             <a href="{% url 'art:create_art' %}">칼럼작성하기</a>
         </li>
         <li>
