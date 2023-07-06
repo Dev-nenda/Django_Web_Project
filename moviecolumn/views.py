@@ -52,16 +52,91 @@ def moviecolumn_detail(request, moviecolumn_pk):
         'comments': comments,
     })
 
-# def update_moviecolumn(request, moviecolumn_pk):
-#     moviecolumn = get_object_or_404(Moviecolumn, pk=moviecolumn_pk)
+@login_required
+@require_http_methods(['GET', 'POST'])
+def update_moviecolumn(request, moviecolumn_pk):
+    moviecolumn = get_object_or_404(Moviecolumn, pk=moviecolumn_pk)
 
-#     if request.user != moviecolumn.author:
-#         from django.http import HttpResponseBadRequest
-#         return HttpResponseBadRequest('안돼요!!')
+    if request.user != moviecolumn.author:
+        from django.http import HttpResponseBadRequest
+        return HttpResponseBadRequest('안돼요!!')
     
-#     if request.method == 'GET':
-#         form = MoviecolumnForm(instance=moviecolumn)
+    if request.method == 'GET':
+        form = MoviecolumnForm(instance=moviecolumn)
     
-#     else: 
-#         form = MoviecolumnForm(request.POST, instance=moviecolumn)
+    else: 
+        form = MoviecolumnForm(request.POST, instance=moviecolumn)
+        if form.is_valid():
+            moviecolumn=form.save()
+            return redirect('moviecolumn:moviecolumn_detail', moviecolumn.pk)
+        return render(request, 'moviecolumn/form.html',{
+            'form': form,
+        })
+
+@login_required
+@require_POST
+def delete_moviecolumn(request, moviecolumn_pk):
+    moviecolumn = get_object_or_404(Moviecolumn, pk=moviecolumn_pk)
+
+    if request.user != moviecolumn.author:
+        from django.http import HttpResponseBadRequest
+        return HttpResponseBadRequest('안돼요!!')
+    
+    moviecolumn.delete()
+    return redirect('moviecolumn:moviecolumn_index')
+
+@login_required
+@require_POST
+def create_comment(request, moviecolumn_pk):
+    moviecolumn = get_object_or_404(Moviecolumn, pk=moviecolumn_pk)
+
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.moviecolumn = moviecolumn
+        comment.author = request.user
+        comment.save()
+
+        return redirect('moviecolumn:moviecolumn_detail', moviecolumn.pk)
+    
+@login_required
+@require_POST
+def delete_comment(request, moviecolumn_pk, comment_pk):
+    moviecolumn = get_object_or_404(Moviecolumn, pk=moviecolumn_pk)
+    comment = get_object_or_404(Comment, pk=comment_pk)
+
+    if request.user != comment.author:
+        from django.http import HttpResponseBadRequest
+        return HttpResponseBadRequest('안돼요!!')
+    
+    comment.delete()
+    return redirect('moviecolumn:moviecolumn_detail', moviecolumn.pk)
+
+@login_required
+@require_POST
+def like_moviecolumn(request, moviecolumn_pk):
+    moviecolumn = get_object_or_404(Moviecolumn, pk=moviecolumn_pk)
+    user = request.user
+
+    if moviecolumn.like_users.filter(pk=user.pk).exists():
+        moviecolumn.like_users.remove(user)
+    
+    else:
+        moviecolumn.like_users.add(user)
+
+    return redirect('moviecolumn:moviecolum_detail', moviecolumn.pk)
+
+def clipping_moviecolumn(request, moviecolumn_pk):
+    moviecolumn = get_object_or_404(Moviecolumn, pk=moviecolumn_pk)
+    user = request.user
+
+    if moviecolumn.clipping_users.filter(pk=user.pk).exists():
+        moviecolumn.clipping_users.remove(user)
+
+    else:
+        moviecolumn.clipping_users.add(user)
+
+    return redirect('moviecolumn:moviecolumn_detail', moviecolumn.pk)
+
+
 

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{moviecolumn.title}}</h1>
+<h2>{{moviecolumn.author.username}}</h2>
+
+<p>{{moviecolumn.content | linebreaksbr}}</p>
+
+<!--수정 삭제 좋아요 스크랩 버튼-->
+{% include 'moviecolumn/detail_ui.html' %}
+<!-- 댓글 UI -->
+{% include 'moviecolumn/detail_comment_ui.html' %}
+
+{% endblock content %}

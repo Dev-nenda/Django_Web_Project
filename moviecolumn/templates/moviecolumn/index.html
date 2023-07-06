@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Movie Column List</h1>
+
+<ul>
+    {% for moviecolumn in moviecolumns  %}
+    <li>
+        <a href="{% url 'accounts:profile' moviecolumn.author.username %}">
+            {{ moviecolumn.author.username }}
+        </a> : 
+        <a href="{% url 'moviecolumn:moviecolumn_detail' moviecolumn.pk %}">
+            {{ moviecolumn.detail }}
+        </a>
+        
+    </li>
+    
+    {% endfor %}
+</ul>
+{% endblock content %}
