@@ -42,8 +42,8 @@ def exhibition_detail(request, exhibition_pk):
     general_form = General_reviewForm()
     is_like = exhibition.like_users.filter(pk=request.user.pk).exists()
 
-    expert_score = Expert_review.objects.aggregate(average_score=Avg("score"))
-    general_score = General_review.objects.aggregate(average_score=Avg("score"))
+    expert_score = Expert_review.objects.filter(exhibition_id = exhibition.pk).aggregate(average_score=Avg("score"))
+    general_score = General_review.objects.filter(exhibition_id =exhibition.pk).aggregate(average_score=Avg("score"))
 
     exeprt_reviews = exhibition.expert_reviews.all()
     general_reviews = exhibition.general_reviews.all()

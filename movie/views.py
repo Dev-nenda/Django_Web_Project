@@ -40,8 +40,8 @@ def movie_detail(request, movie_pk):
     expert_form = Expert_reviewForm()
     general_form = General_reviewForm()
     is_like = movie.like_users.filter(pk=request.user.pk).exists()
-    expert_score = Expert_review.objects.aggregate(average_score=Avg("score"))
-    general_score = General_review.objects.aggregate(average_score=Avg("score"))
+    expert_score = Expert_review.objects.filter(movie_id = movie.pk).aggregate(average_score=Avg("score"))
+    general_score = General_review.objects.filter(movie_id = movie.pk).aggregate(average_score=Avg("score"))
     expert_reviews = movie.movie_expert_reviews.all()
     general_reviews = movie.movie_general_reviews.all()
 
