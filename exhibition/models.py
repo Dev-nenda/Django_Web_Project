@@ -18,6 +18,7 @@ class Exhibition(models.Model):
 
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_exhibitions')
 
+    poster = models.URLField(blank=True, null=True)
 
 class Expert_review(models.Model):
 

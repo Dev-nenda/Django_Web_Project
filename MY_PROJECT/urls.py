@@ -19,7 +19,7 @@ from django.urls import path, include
 
 def home(request):
     from django.shortcuts import redirect
-    return redirect('art:art_index')
+    return redirect('home:home')
 
 urlpatterns = [
     path('', home, name='home'),
@@ -28,6 +28,7 @@ urlpatterns = [
     path('art/', include('art.urls')),  
     path('exhibition/', include('exhibition.urls')),
     path('movie/', include('movie.urls')),    
-    path('moviecolumn/', include('moviecolumn.urls')),              
+    path('moviecolumn/', include('moviecolumn.urls')), 
+    path('home/', include('home.urls'))            
     
 ]

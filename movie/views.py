@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Movie, Expert_review, General_review
 from .forms import MovieForm, Expert_reviewForm, General_reviewForm
+from moviecolumn.models import Moviecolumn
+from moviecolumn.forms import MoviecolumnForm
 
 from django.db.models import Avg, Sum
 
@@ -11,6 +13,10 @@ from django.db.models import Avg, Sum
 @login_required
 @require_http_methods(['GET','POST'])
 def create_movie(request):
+    # expert_movie 그룹이 아니면 홈으로 가게 만듬
+    if not request.user.groups.filter(name="expert_movie").exists():
+        return redirect('home')
+    
     if request.method == 'GET':
         form = MovieForm()
 
@@ -111,6 +117,9 @@ def delete_movie(request, movie_pk):
 @login_required
 @require_POST
 def create_expert_review(request, movie_pk):
+    # expert_movie 그룹이 아니면 홈으로 가게 만듬
+    if not request.user.groups.filter(name="expert_movie").exists():
+        return redirect('home')
     movie = get_object_or_404(Movie, pk=movie_pk)
 
     expert_form = Expert_reviewForm(request.POST)
@@ -196,5 +205,32 @@ def like_movie(request, movie_pk):
         movie.like_users.add(user)
 
     return redirect('movie:movie_detail', movie.pk)
+
+
+@login_required
+@require_http_methods(['GET', 'POST'])
+def create_moviecolumn(request, movie_pk):
+    # expert_movie 그룹이 아니면 홈으로 가게 만듬
+    if not request.user.groups.filter(name="expert_movie").exists():
+        return redirect('home')
+    
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    if request.method == 'GET':
+        form  = MoviecolumnForm
+
+    else:
+        form = MoviecolumnForm(request.POST)
+        if form.is_valid():
+            moviecolumn = form.save(commit=False)
+            moviecolumn.author = request.user
+            moviecolumn.movie = movie
+            moviecolumn.save()
+
+            return redirect('moviecolumn:moviecolumn_detail', moviecolumn.pk)
+        
+    return render(request, 'moviecolumn/form.html', {
+        'form' : form, 
+    })
+
 
 

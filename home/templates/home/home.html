@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for movie in movies %}
+
+<a href="{% url 'movie:movie_detail' movie.pk %}"> <img src="{{movie.poster}}" alt="poster" width="200px"></a>
+{% endfor %}
+
+<hr>
+
+{% for exhibition in exhibitions %}
+<a href="{% url 'exhibition:exhibition_detail' exhibition.pk %}"><img src="{{exhibition.poster}}" alt="poster" width="200"></a>
+{% endfor %}
+
+{% endblock content %}
+
+

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Home</a>
+      <a class="navbar-brand" href="{% url 'home:home' %}">Home</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -35,7 +35,7 @@
               <li><a class="dropdown-item" href="{% url 'movie:movie_index' %}">Movie List</a></li>
               {% for group in user.groups.all %}
                 {% if group.name == 'expert_movie' %}
-                    <li><a class="dropdown-item" href="{% url 'moviecolumn:create_moviecolumn' %}">New Movie Column</a></li>
+                    <li><a class="dropdown-item" href="{% url 'moviecolumn:create_moviecolumn'  %}">New Movie Column</a></li>
                     <li><a class="dropdown-item" href="{% url 'movie:create_movie' %}">New Movie</a></li>
                 {% endif %}
               {% endfor %}  

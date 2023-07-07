@@ -4,8 +4,9 @@ from . import views
 app_name ='moviecolumn'
 
 urlpatterns = [
-    # /moviecolumn/create/
+    # moviecolumn/create/
     path('create/', views.create_moviecolumn, name='create_moviecolumn'),
+
     
     # /moviecolumn/
     path('', views.moviecolumn_index, name='moviecolumn_index'),
@@ -29,5 +30,7 @@ urlpatterns = [
     path('<int:moviecolum_pk>/like/', views.like_moviecolumn, name='like_moviecolumn'),
 
     # /moviecolumn/1/clipping/
-    path('<int:moviecolumn_pk>/clipping/', views.clipping_moviecolumn, name='clipping_moviecolumn')
+    path('<int:moviecolumn_pk>/clipping/', views.clipping_moviecolumn, name='clipping_moviecolumn'),
+
+
 ]

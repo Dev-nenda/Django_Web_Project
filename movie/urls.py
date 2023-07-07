@@ -34,5 +34,8 @@ urlpatterns = [
     path('<int:movie_pk>/general_reviews/<int:general_review_pk>/delete/', views.delete_general_review, name='delete_general_review'),
 
     # /movie/1/like/
-    path('<int:movie_pk>/like/', views.like_movie, name='like_movie')
+    path('<int:movie_pk>/like/', views.like_movie, name='like_movie'),
+
+    # /movie/1/moviecolumn/create
+    path('<int:movie_pk>/moviecolumn/create/', views.create_moviecolumn, name='create_moviecolumn'),
 ]

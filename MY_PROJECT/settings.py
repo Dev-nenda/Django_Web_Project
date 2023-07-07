@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'exhibition',
     'movie',
     'moviecolumn',
+    'home',
 
 ]
 

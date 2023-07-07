@@ -3,18 +3,51 @@
 {% block content %}
 <h1>{{profile_user.username}}의 프로필</h1>
 
-<h2>작성글</h2>
-<ul>
-    {% for art in profile_user.arts.all  %}
-    <li>
-        <a href="{% url 'art:art_detail' art.pk %}">
-            {{ art.title }}
-        </a>
-    </li>
-    {% endfor %}
-</ul>
-
-
+{% for group in profile_user.groups.all %}
+    {% if group.name == 'gallery' %}
+        <h2>전시 현황</h2>
+        <ul>
+            {% for exhibition in profile_user.exhibitions.all  %}
+            <li>
+                <a href="{% url 'exhibition:exhibition_detail' exhibition.pk %}">
+                    {{ exhibition.title }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>       
+    {% endif %}
+{% endfor %}
+<hr>
+{% for group in profile_user.groups.all  %}
+        {% if group.name == 'expert_art' %}
+            <h2>Art Columns</h2>
+            <ul>
+                {% for art in profile_user.arts.all  %}
+                <li>
+                    <a href="{% url 'art:art_detail' art.pk %}">
+                        {{art.title}}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+{% endfor %}
+<hr>
+{% for group in profile_user.groups.all  %}
+        {% if group.name == 'expert_movie' %}
+            <h2>Movie Columns</h2>
+            <ul>
+                {% for moviecolumn in profile_user.moviecolumns.all  %}
+                <li>
+                    <a href="{% url 'moviecolumn:moviecolumn_detail' moviecolumn.pk %}">
+                        {{moviecolumn.title}}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+{% endfor %}
+<hr>
 
 <h2>스크랩</h2>
 <ul>

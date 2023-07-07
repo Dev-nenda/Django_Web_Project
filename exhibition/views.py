@@ -11,6 +11,10 @@ from django.db.models import Avg
 @login_required
 @require_http_methods(['GET','POST'])
 def create_exhibition(request):
+    # gallery 그룹이 아니면 홈으로 가게 만듬
+    if not request.user.groups.filter(name="gallery").exists():
+        return redirect('home')
+    
     if request.method == 'GET':
         form = ExhibitionForm()
 
@@ -98,6 +102,10 @@ def delete_exhibition(request, exhibition_pk):
 @login_required
 @require_POST
 def create_expert_review(request, exhibition_pk):
+    # expert_art 그룹이 아니면 홈으로 가게 만듬
+    if not request.user.groups.filter(name="expert_art").exists():
+        return redirect('home')
+    
     exhibition = get_object_or_404(Exhibition, pk=exhibition_pk)
     
     expert_form = Expert_reviewForm(request.POST)

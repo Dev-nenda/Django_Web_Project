@@ -6,7 +6,7 @@ from .models import Exhibition, Expert_review, General_review
 class ExhibitionForm(forms.ModelForm):
     class Meta:
         model = Exhibition
-        fields = ('title', 'schedule', 'introduction', 'artist', 'locations', 'ticketing',)
+        fields = ('title', 'schedule', 'introduction', 'artist', 'locations', 'ticketing', 'poster',)
 
 
 class Expert_reviewForm(forms.ModelForm):
