@@ -2,8 +2,9 @@
 
 {% block content %}
 {% for movie in movies %}
-
-<a href="{% url 'movie:movie_detail' movie.pk %}"> <img src="{{movie.poster}}" alt="poster" width="200px"></a>
+    {% if movie.on_showing == True %}
+        <a href="{% url 'movie:movie_detail' movie.pk %}"> <img src="{{movie.poster}}" alt="poster" width="200px"></a>
+    {% endif %}
 {% endfor %}
 
 <hr>
