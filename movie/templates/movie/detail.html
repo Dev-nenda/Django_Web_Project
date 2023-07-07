@@ -32,6 +32,14 @@
 {% include 'movie/detail_expert_review_ui.html' %}
 {% include 'movie/detail_general_review_ui.html' %}
 
-<a href="{% url 'movie:create_moviecolumn' movie.pk %}">컬럼작성gogo</a>
+{% if user.is_authenticated %}
+    {% for group in user.groups.all %}
+        {% if group.name == 'expert_movie' %}
+        <a href="{% url 'movie:create_moviecolumn' movie.pk %}">컬럼작성gogo</a> 
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
 
 {% endblock content %}

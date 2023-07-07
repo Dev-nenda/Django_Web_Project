@@ -1,10 +1,13 @@
 {% if user.is_authenticated %}
-<form action="{% url 'movie:create_general_review' movie.pk %}"method="POST">
-    {% csrf_token %}
-    {{ general_form }}
-    <button>작성</button>
-</form>
-
+    {% for group in user.groups.all %}
+        {% if group.name != 'expert_movie' %}
+            <form action="{% url 'movie:create_general_review' movie.pk %}" method="POST">
+                {% csrf_token %}
+                {{ general_form }}
+                <button>작성</button>
+            </form> 
+        {% endif %}
+    {% endfor %}
 {% endif %}
 
 <hr>

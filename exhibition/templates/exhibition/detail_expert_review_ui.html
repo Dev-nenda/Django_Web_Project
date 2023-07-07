@@ -1,11 +1,17 @@
-{% if user.is_authenticated %}
-<form action="{% url 'exhibition:create_expert_review' exhibition.pk %}" method="POST">
-    {% csrf_token %}
-    {{ expert_form }}
-    <button>작성</button>
-</form>
 
+{% if user.is_authenticated %}
+    {% for group in user.groups.all %}
+        {% if group.name == 'expert_art' %}
+            <form action="{% url 'exhibition:create_expert_review' exhibition.pk %}" method="POST">
+                {% csrf_token %}
+                {{ expert_form }}
+                <button>작성</button>
+            </form>
+        {% endif %}
+    {% endfor %}
 {% endif %}
+
+
 
 <hr>
 
