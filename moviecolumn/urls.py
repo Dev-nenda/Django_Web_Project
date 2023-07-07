@@ -24,7 +24,7 @@ urlpatterns = [
     path('<int:moviecolumn_pk>/comments/create', views.create_comment, name='create_comments'),
 
     # /moviecolumn/1/comments/1/delete/
-    path('<int:moviecolumn>/comments/<int:comment_pk>/delete', views.delete_comment, name='delete_comment'),
+    path('<int:moviecolumn_pk>/comments/<int:comment_pk>/delete', views.delete_comment, name='delete_comment'),
 
     # /moviecolumn/1/like/
     path('<int:moviecolum_pk>/like/', views.like_moviecolumn, name='like_moviecolumn'),

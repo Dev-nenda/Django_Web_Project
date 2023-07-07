@@ -1,0 +1,29 @@
+{% load bootstrap5 %}
+{% if user.is_authenticated %}
+
+<form action="{% url 'moviecolumn:create_comments' moviecolumn.pk %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form%}
+    <button>작성</button>
+</form>
+{% endif %}
+
+<hr>
+
+<ul>
+    {% for comment in comments  %}
+    <li>
+        <a href="{% url 'accounts:profile' comment.author.username %}">
+            {{comment.author.username}}
+        </a>
+        :{{ comment.content}}
+
+        {% if user == comment.author %}
+        <form action="{% url 'moviecolumn:delete_comment' moviecolumn.pk comment.pk %}" method="POST">
+            {% csrf_token %}
+            <button>❌</button>
+        </form>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
