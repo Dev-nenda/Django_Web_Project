@@ -3,6 +3,30 @@
 {% block content %}
 <h1>{{profile_user.username}}의 프로필</h1>
 
+<div>
+    <a href="{% url 'accounts:followings' profile_user.username %}">Following</a>: {{profile_user.stars.count}}
+</div>
+
+{% for group in profile_user.groups.all %}
+    {% if group.name != 'general' %}
+        <a href="{% url 'accounts:followers' profile_user.username %}">followers</a>: {{profile_user.fans.count}}
+    {% endif %}
+{% endfor %}
+
+{% if user.is_authenticated and profile_user != user %}
+
+<div>
+    <form action="{% url 'accounts:follow' profile_user.username %}" method="POST">
+        {% csrf_token %}
+        {% if is_following %}
+        <button>언팔로우</button>
+        {% else %}
+        <button>팔로우</button>
+        {% endif %}
+    </form>
+</div>
+{% endif %}
+
 {% for group in profile_user.groups.all %}
     {% if group.name == 'gallery' %}
         <h2>전시 현황</h2>
