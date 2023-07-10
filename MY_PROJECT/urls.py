@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 
 def home(request):
     from django.shortcuts import redirect
@@ -24,11 +26,13 @@ def home(request):
 urlpatterns = [
     path('', home, name='home'),
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
+    path('account/', include('accounts.urls')),
     path('art/', include('art.urls')),  
     path('exhibition/', include('exhibition.urls')),
     path('movie/', include('movie.urls')),    
     path('moviecolumn/', include('moviecolumn.urls')), 
-    path('home/', include('home.urls'))            
-    
+    path('home/', include('home.urls')),
+    path('accounts/', include('allauth.urls')),            
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
+

@@ -4,7 +4,7 @@
 
 {% for following in followings  %}
 <li>
-    <a href="{% url 'accounts:profile' following.username %}">{{following.username}}</a>
+    <a href="{% url 'account:profile' following.username %}">{{following.username}}</a>
 </li>
 
 {% endfor %}

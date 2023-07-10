@@ -22,7 +22,9 @@ def signup(request):
             # 신규 회원가입을 할 때 general 그룹으로 설정
             group= Group.objects.get(name='general')
             user.groups.add(group)
-            auth_login(request, user)
+            auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            
+            
             return redirect('home')
     return render(request, 'accounts/signup.html',{
         'form': form,
@@ -36,7 +38,10 @@ def login(request):
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
             user = form.get_user()
+            
+                
             auth_login(request, user)
+            
 
             return redirect(request.GET.get('next') or 'home')
     return render(request, 'accounts/login.html', {
@@ -69,7 +74,7 @@ def follow(request, username):
         else: 
             fan.stars.add(star)
 
-    return redirect('accounts:profile', star)
+    return redirect('account:profile', star)
 
 @require_safe
 def followers(request, username):
@@ -88,3 +93,4 @@ def followings(request, username):
     return render(request, 'accounts/followings.html', {
         'followings' : followings
     })
+

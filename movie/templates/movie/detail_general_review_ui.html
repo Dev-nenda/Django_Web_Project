@@ -15,7 +15,7 @@
 <ul>
     {% for general_review in general_reviews  %}
     <li>
-        <a href="{% url 'accounts:profile' general_review.author.username %}">
+        <a href="{% url 'account:profile' general_review.author.username %}">
             {{general_review.author.username }}
         </a>
         : {{ general_review.content}} |

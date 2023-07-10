@@ -6,7 +6,7 @@
 <ul>
     {% for moviecolumn in moviecolumns  %}
     <li>
-        <a href="{% url 'accounts:profile' moviecolumn.author.username %}">
+        <a href="{% url 'account:profile' moviecolumn.author.username %}">
             {{ moviecolumn.author.username }}
         </a> : 
         <a href="{% url 'moviecolumn:moviecolumn_detail' moviecolumn.pk %}">

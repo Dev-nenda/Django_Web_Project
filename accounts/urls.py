@@ -3,28 +3,30 @@
 from django.urls import path
 from . import views
 
-app_name = 'accounts'
+app_name = 'account'
 
 urlpatterns = [
-    # /accounts/signup/
+    # /account/signup/
     path('signup/', views.signup, name='signup'),
 
-    # /accounts/login/
+    # /account/login/
     path('login/', views.login, name='login'),
 
-    # /accounts/logout/
+    # /account/logout/
     path('logout/', views.logout, name= 'logout'),
 
-    # /accounts/nenda/
+    # /account/nenda/
     path('<str:username>/', views.profile, name='profile'),
 
-    # /accounts/nenda/follow/
+    # /account/nenda/follow/
     path('<str:username>/follow/', views.follow, name='follow'),
 
-    # accounts/nenda/followers/
+    # account/nenda/followers/
     path('<str:username>/followers/', views.followers, name='followers'),
 
-    # /accounts/nenda/followings/
+    # /account/nenda/followings/
     path('<str:username>/followings/', views.followings, name='followings'),
+
+    
 
 ]

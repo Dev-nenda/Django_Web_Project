@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load socialaccount %}
 {% load bootstrap5 %}
 
 
@@ -14,5 +14,12 @@
             <button>Login</button>
         </div>
     </form>
+    <div width:'13rem'>
+        <a href="{% provider_login_url "naver" %}">
+            Naver
+        </a>
+    </div>
 </div>
+
+
 {% endblock content %}

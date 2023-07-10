@@ -18,7 +18,7 @@
 <ul>
     {% for expert_review in expert_reviews %}
     <li>
-        <a href="{% url 'accounts:profile' expert_review.author.username %}">
+        <a href="{% url 'account:profile' expert_review.author.username %}">
             {{expert_review.author.username}}
         </a>
         : 

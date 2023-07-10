@@ -13,7 +13,7 @@
 <ul>
     {% for comment in comments  %}
     <li>
-        <a href="{% url 'accounts:profile' comment.author.username %}">
+        <a href="{% url 'account:profile' comment.author.username %}">
             {{comment.author.username}}
         </a>
         :{{ comment.content}}

@@ -41,6 +41,15 @@ INSTALLED_APPS = [
     'django_extensions',
     'bootstrap5',
 
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.naver',
+    'ckeditor',
+    'ckeditor_uploader',
+
+
     'accounts',
     'art',
     'exhibition',
@@ -49,6 +58,27 @@ INSTALLED_APPS = [
     'home',
 
 ]
+
+SITE_ID = 1
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',    
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+LOGIN_URL = '/account/login/'
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'naver': {'APP': {
+                        'client_id': 'Ihncx1lkfIzjdLcKCjaZ',
+                        'secret': 'xQSTxmem69',
+                        'key': ''
+                }},}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -128,9 +158,23 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+import os
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+
