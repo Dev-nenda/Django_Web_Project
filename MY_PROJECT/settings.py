@@ -46,8 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.naver',
-    'ckeditor',
-    'ckeditor_uploader',
+    
 
 
     'accounts',
@@ -69,16 +68,19 @@ AUTHENTICATION_BACKENDS = [
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
 LOGIN_URL = '/account/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/account/set_general_permission/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True
 
 SOCIALACCOUNT_PROVIDERS = {
-    'naver': {'APP': {
-                        'client_id': 'Ihncx1lkfIzjdLcKCjaZ',
-                        'secret': 'xQSTxmem69',
-                        'key': ''
-                }},}
+    'naver': {
+        'APP': {
+            'client_id': 'Ihncx1lkfIzjdLcKCjaZ',
+            'secret': 'xQSTxmem69',
+            'key': ''
+        }
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -157,18 +159,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
-import os
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-CKEDITOR_UPLOAD_PATH = "uploads/"
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

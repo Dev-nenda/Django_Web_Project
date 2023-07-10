@@ -37,11 +37,8 @@ def login(request):
     else:
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
-            user = form.get_user()
-            
-                
+            user = form.get_user()  
             auth_login(request, user)
-            
 
             return redirect(request.GET.get('next') or 'home')
     return render(request, 'accounts/login.html', {
@@ -94,3 +91,12 @@ def followings(request, username):
         'followings' : followings
     })
 
+
+def set_general_permission(request):
+    if request.user.groups.exists() == True:
+        return redirect('home')
+    else:
+        group= Group.objects.get(name='general')
+        request.user.groups.add(group)
+        
+        return redirect('home')

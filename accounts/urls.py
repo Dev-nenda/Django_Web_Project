@@ -15,6 +15,9 @@ urlpatterns = [
     # /account/logout/
     path('logout/', views.logout, name= 'logout'),
 
+
+    path('set_general_permission/', views.set_general_permission, name='set_general_permission'),
+
     # /account/nenda/
     path('<str:username>/', views.profile, name='profile'),
 
