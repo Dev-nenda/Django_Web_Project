@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+import os
+import environ
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -72,11 +75,18 @@ LOGIN_REDIRECT_URL = '/account/set_general_permission/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True
 
+
+env = environ.Env()
+environ.Env.read_env()
+
+
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SOCIALACCOUNT_PROVIDERS = {
     'naver': {
         'APP': {
             'client_id': 'Ihncx1lkfIzjdLcKCjaZ',
-            'secret': 'xQSTxmem69',
+            'secret': env('naver_secret'),
             'key': ''
         }
     },
