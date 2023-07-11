@@ -83,5 +83,8 @@
         </li>
     {% endfor %}
 </ul>
-
+<hr>
+{% if user == profile_user %}
+<a href="{% url 'account:delete' profile_user.username %}">회원탈퇴</a>
+{% endif %}
 {% endblock content %}

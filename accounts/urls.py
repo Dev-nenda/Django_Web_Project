@@ -30,6 +30,8 @@ urlpatterns = [
     # /account/nenda/followings/
     path('<str:username>/followings/', views.followings, name='followings'),
 
-    
+    #/account/nenda/delete/
+    path('<str:username>/delete/', views.delete, name='delete')
+
 
 ]

@@ -100,3 +100,13 @@ def set_general_permission(request):
         request.user.groups.add(group)
         
         return redirect('home')
+
+
+
+@require_http_methods(['GET', 'POST'])
+def delete(request, username):
+    profile_user = get_object_or_404(User, username = username)
+    if request.user == profile_user:
+        request.user.delete()
+        auth_logout(request)
+    return redirect('home')
