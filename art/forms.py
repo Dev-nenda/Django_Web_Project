@@ -1,5 +1,6 @@
 from django import forms
 from .models import Art, Comment
+from ckeditor.widgets import CKEditorWidget
 
 class ArtForm(forms.ModelForm):
     title = forms.CharField(
@@ -7,13 +8,8 @@ class ArtForm(forms.ModelForm):
         max_length= 200,
     )
 
-    content = forms.CharField(
-        min_length=1,
-        widget = forms.Textarea(attrs={
-            'class': 'my-text-area',
-        })
-    )
-
+    content =  content = forms.CharField(widget=CKEditorWidget())
+    
     class Meta:
         model = Art
         fields = ('title', 'content')

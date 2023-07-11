@@ -74,9 +74,9 @@ def update_moviecolumn(request, moviecolumn_pk):
         if form.is_valid():
             moviecolumn=form.save()
             return redirect('moviecolumn:moviecolumn_detail', moviecolumn.pk)
-        return render(request, 'moviecolumn/form.html',{
-            'form': form,
-        })
+    return render(request, 'moviecolumn/form.html',{
+        'form': form,
+    })
 
 @login_required
 @require_POST

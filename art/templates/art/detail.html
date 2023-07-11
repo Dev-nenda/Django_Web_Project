@@ -4,7 +4,7 @@
 <h1>{{art.title}}</h1>
 <h2>{{art.author.username}}</h2>
 
-<p>{{art.content | linebreaksbr }}</p>
+<p>{{art.content | safe }}</p>
 <!--수정, 삭제, 좋아요, 스크랩 버튼-->
 {% include 'art/detail_ui.html' %}
 <hr>

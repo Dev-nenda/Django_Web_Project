@@ -8,8 +8,9 @@
 
     <form method="POST">
         {% csrf_token %}
-        {% comment %} {{ form.as_p }} {% endcomment %}
-        {%bootstrap_form form%}    
+        {{ form.media }}
+        {{ form.as_p }}
+            
         <div>
             <button>작성하기</button>
         </div>
