@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class='container'>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {%bootstrap_form form%}
+        
+        <div>
+            <button>수정하기</button>
+        </div>
+    </form>
+{% endblock content %}

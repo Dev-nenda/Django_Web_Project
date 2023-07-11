@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_http_methods, require_safe, require_POST
+from django.contrib import messages
 
-
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login as auth_login, logout as auth_logout, get_user_model
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth import login as auth_login, logout as auth_logout, get_user_model, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from .models import User
 
-from .forms import CustomUserCreationForm
+
+from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomPasswordChangeForm
 
 User = get_user_model()
 
@@ -110,3 +112,46 @@ def delete(request, username):
         request.user.delete()
         auth_logout(request)
     return redirect('home')
+
+@login_required
+@require_http_methods(['GET', 'POST'])
+def update(request, username):
+    profile_user = get_object_or_404(User, username=username)
+    if request.user == profile_user:
+        
+        
+        if request.method == 'GET':
+            form = CustomUserChangeForm(instance=request.user)
+
+        else:
+            form =CustomUserChangeForm(request.POST, instance=request.user)
+            if form.is_valid():
+                form.save()
+
+                return redirect('account:profile', profile_user.username)
+            
+        return render(request, 'accounts/update.html', {
+            'form' : form
+        })
+    
+
+@login_required
+def change_password(request, username):
+    profile_user = get_object_or_404(User, username=username)
+    if request.method == 'POST':
+        password_change_form = CustomPasswordChangeForm(request.user, request.POST)
+        if password_change_form.is_valid():
+            user = password_change_form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, "비밀번호를 성공적으로 변경하였습니다.")
+            return redirect('account:profile', request.user.username)
+    else:
+        password_change_form = CustomPasswordChangeForm(request.user)
+
+    return render(request, 'accounts/change_password.html', {
+        'password_change_form':password_change_form
+        })
+    
+    
+
+

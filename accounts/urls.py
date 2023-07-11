@@ -31,7 +31,11 @@ urlpatterns = [
     path('<str:username>/followings/', views.followings, name='followings'),
 
     #/account/nenda/delete/
-    path('<str:username>/delete/', views.delete, name='delete')
+    path('<str:username>/delete/', views.delete, name='delete'),
 
+    #/account/nenda/update/
+    path('<str:username>/update/', views.update, name='update'),
 
+    path('<str:username>/password/', views.change_password, name='change_password')
+   
 ]
