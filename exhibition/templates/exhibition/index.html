@@ -1,18 +1,36 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %}
 
 {% block content %}
-<h1>Exhibitions</h1>
+<div>
+    <h1 style="margin-top: 80px;">Exhibitions</h1>
+</div>
 
-<ul>
-    {% for exhibition in exhibitions  %}
-    <li>
-        <a href="{% url 'account:profile' exhibition.owner.username %}">
-            {{exhibition.owner.username}}
-        </a>
-        <a href="{% url 'exhibition:exhibition_detail' exhibition.pk %}">
-            {{exhibition.title}} {{exhibition.score}}
-        </a>
-    </li>
-    {% endfor %}
-</ul>
+<div style= "margin-top : 50px;">
+
+    <div class="row row-cols-1 row-cols-md-6 g-4">
+        {% for exhibition in page_obj %}
+        <div class="col">
+            <a href="{% url 'exhibition:exhibition_detail' exhibition.pk %}" style = "text-decoration-line: none;">
+                <div class="card h-100">
+                    <img src="{{exhibition.poster}}" class="card-img-top" alt="poster">
+                    <div class="card-body">
+                        <h5 class="card-title">{{exhibition.title}}</h5>
+                        <p class="card-text">{{exhibition.score}}</p>
+                        {% if exhibition.on_showing == True %}
+                        <p class-"card-text">상영중!</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- pagination 네비게이터 -->
+<div class="mt-5 d-flex justify-content-center">
+    {% bootstrap_pagination page_obj %}
+</div>
+
 {% endblock content %}

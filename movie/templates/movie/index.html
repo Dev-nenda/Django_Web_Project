@@ -1,22 +1,36 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %}
 
 {% block content %}
-<h1>Moives</h1>
+<div>
+    <h1 style="margin-top: 80px;">Movies</h1>
+</div>
 
-<div class="row row-cols-1 row-cols-md-6 g-4">
-    {% for movie in movies %}
-    <div class="col">
-    <a href="{% url 'movie:movie_detail' movie.pk %}">
-        <div class="card h-100">
-            <img src="{{movie.poster}}" class="card-img-top" alt="">
-            <div class="card-body">
-                <h5 class="card-title">{{movie.title}}</h5>
-                <p class="card-text">{{movie.score}}</p>
-            </div>
+<div style= "margin-top : 50px;">
+
+    <div class="row row-cols-1 row-cols-md-6 g-4">
+        {% for movie in page_obj %}
+        <div class="col">
+            <a href="{% url 'movie:movie_detail' movie.pk %}" style = "text-decoration-line: none;">
+                <div class="card h-100">
+                    <img src="{{movie.poster}}" class="card-img-top" alt="poster">
+                    <div class="card-body">
+                        <h5 class="card-title">{{movie.title}}</h5>
+                        <p class="card-text">{{movie.score}}</p>
+                        {% if movie.on_showing == True %}
+                        <p class-"card-text">상영중!</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
         </div>
-    </a>
+        {% endfor %}
     </div>
-    {% endfor %}
+</div>
+
+<!-- pagination 네비게이터 -->
+<div class="mt-5 d-flex justify-content-center">
+    {% bootstrap_pagination page_obj %}
 </div>
 
 

@@ -1,0 +1,14 @@
+{% if user.is_authenticated %}
+<div style="display: inline-block;">
+    <form action="{% url 'exhibition:like_exhibition' exhibition.pk %}" method="POST">
+        {% csrf_token %}
+        
+        {% if is_like  %}
+        <button>❤</button>        
+        {% else %}
+        <button>🤍</button>
+        {% endif %}
+
+    </form>
+</div>
+{% endif %}

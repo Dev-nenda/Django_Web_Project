@@ -5,7 +5,10 @@
     
     <h1>{{exhibition.title}}</h1>
     <hr>
-    <h5>{{exhibition.hits}}</h5>
+    <h5 class= "d-flex flex-row-reverse">
+        <div class="p-2">{% include 'exhibition/like_exhibition.html' %}</div>
+        <div class="p-2">조회수 : {{exhibition.hits}}</div>
+    </h5>
     <hr>
     <div>
         <div>

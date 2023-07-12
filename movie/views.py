@@ -6,6 +6,7 @@ from .models import Movie, Expert_review, General_review
 from .forms import MovieForm, Expert_reviewForm, General_reviewForm
 from moviecolumn.models import Moviecolumn
 from moviecolumn.forms import MoviecolumnForm
+from django.core.paginator import Paginator
 
 from django.db.models import Avg, Sum
 
@@ -37,9 +38,13 @@ def create_movie(request):
 
 @require_safe
 def movie_index(request):
-    movies = Movie.objects.all()
+    movies = Movie.objects.all().order_by('title')
+    paginator = Paginator(movies, 12)  # feeds 를 1페이지에 10개씩 묶음
+    page_number = request.GET.get("page")
+
+    page_obj = paginator.get_page(page_number)
     return render(request, 'movie/index.html',{
-        'movies': movies,
+        'page_obj': page_obj,
     })
 
 @require_safe

@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Exhibition, Expert_review, General_review
 from .forms import ExhibitionForm, Expert_reviewForm, General_reviewForm
+from django.core.paginator import Paginator
 
 from django.db.models import Avg
 
@@ -34,9 +35,13 @@ def create_exhibition(request):
 @require_safe
 def exhibition_index(request):
     exhibitions = Exhibition.objects.all()
+    paginator = Paginator(exhibitions, 12)  # feeds 를 1페이지에 10개씩 묶음
+    page_number = request.GET.get("page")
+
+    page_obj = paginator.get_page(page_number)
 
     return render(request, 'exhibition/index.html',{
-        'exhibitions': exhibitions
+        'page_obj': page_obj,
     })
 
 @require_safe
