@@ -10,7 +10,7 @@
             {{exhibition.owner.username}}
         </a>
         <a href="{% url 'exhibition:exhibition_detail' exhibition.pk %}">
-            {{exhibition.title}}
+            {{exhibition.title}} {{exhibition.score}}
         </a>
     </li>
     {% endfor %}

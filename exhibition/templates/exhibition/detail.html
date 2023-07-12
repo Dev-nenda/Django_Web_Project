@@ -1,15 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class= 'container'> 
+
+    
     <h1>{{exhibition.title}}</h1>
-    <img src="{{exhibition.poster}}" alt="poster" width = "200px">
-    <h2>{{exhibition.owner}}</h2>
-    <h2>{{exhibition.artist}}</h2>
-    <h2>{{exhibition.schedule}}</h2>
-    
-    <p>{{exhibition.introduction | linebreaksbr}}</p>
-    
+    <hr>
+    <h5>{{exhibition.hits}}</h5>
+    <hr>
+    <div>
+        <div>
+
+            <img src="{{exhibition.poster}}" class="img-fluid" alt="poster" >
+        </div>
+        <div>
+
+            <h2>{{exhibition.owner}}</h2>
+            <h2>{{exhibition.artist}}</h2>
+            <h2>{{exhibition.schedule}}</h2>
+            
+            <p>{{exhibition.introduction | linebreaksbr}}</p>
+        </div>
+        
+    </div>
     <hr>
     
     <p>{{exhibition.location}}</p>
@@ -17,7 +29,7 @@
     
     <p>전문가 평점: {{expert_score}}</p>
     <p>회원 평점 :{{general_score}}</p>
-</div>
+
 
 <hr>
 <!--수정, 삭제, 좋아요-->

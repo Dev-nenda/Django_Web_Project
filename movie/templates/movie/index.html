@@ -3,17 +3,24 @@
 {% block content %}
 <h1>Moives</h1>
 
-<ul>
-    {% for movie in movies  %}
-    <li>
-        <a href="{% url 'movie:movie_detail' movie.pk %}">
-            {{movie.title}} {{movie.score}}
-           
-        </a>
-    </li>
-    
-    
+<div class="row row-cols-1 row-cols-md-6 g-4">
+    {% for movie in movies %}
+    <div class="col">
+    <a href="{% url 'movie:movie_detail' movie.pk %}">
+        <div class="card h-100">
+            <img src="{{movie.poster}}" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">{{movie.title}}</h5>
+                <p class="card-text">{{movie.score}}</p>
+            </div>
+        </div>
+    </a>
+    </div>
     {% endfor %}
-</ul>
+</div>
+
+
+
+      
 
 {% endblock content %}

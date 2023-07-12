@@ -46,11 +46,25 @@ def exhibition_detail(request, exhibition_pk):
     general_form = General_reviewForm()
     is_like = exhibition.like_users.filter(pk=request.user.pk).exists()
 
+    expert_scores = 0.0
     expert_score = Expert_review.objects.filter(exhibition_id = exhibition.pk).aggregate(average_score=Avg("score"))
-    general_score = General_review.objects.filter(exhibition_id =exhibition.pk).aggregate(average_score=Avg("score"))
+    if expert_score['average_score'] != None:
+        expert_scores = expert_score['average_score']
+        
+    
+    general_scores = 0.0
+    general_score = General_review.objects.filter(exhibition_id = exhibition.pk).aggregate(average_score=Avg("score"))
+    if general_score['average_score'] != None:
+        general_scores = general_score['average_score']
+
 
     exeprt_reviews = exhibition.expert_reviews.all()
     general_reviews = exhibition.general_reviews.all()
+
+    exhibition.score = general_scores
+
+    exhibition.hits +=1
+    exhibition.save()
 
     return render(request, 'exhibition/detail.html', {
         'exhibition' : exhibition,
@@ -59,8 +73,8 @@ def exhibition_detail(request, exhibition_pk):
         'expert_form': expert_form,
         'general_form': general_form,
         'is_like' : is_like,
-        'expert_score': expert_score['average_score'],
-        'general_score': general_score['average_score'],
+        'expert_score': expert_scores,
+        'general_score': general_scores,
         
     })
 

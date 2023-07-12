@@ -86,9 +86,12 @@
 <hr>
 {% if user == profile_user %}
 
+
 <a href="{% url 'account:change_password' profile_user.username %}">
     <button>비밀번호 변경</button>
 </a>
+
+
 <a href="{% url 'account:update' profile_user.username %}">
     <button>정보수정</button>
 </a>

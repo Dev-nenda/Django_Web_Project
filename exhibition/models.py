@@ -20,6 +20,10 @@ class Exhibition(models.Model):
 
     poster = models.URLField(blank=True, null=True)
 
+    score = models.FloatField(null = True)
+
+    hits = models.PositiveIntegerField(default= 0)
+
 class Expert_review(models.Model):
 
     SCORE_CHOICES = [
