@@ -7,7 +7,7 @@ class MoviecolumnForm(forms.ModelForm):
 
     class Meta:
         model = Moviecolumn
-        fields =('title', 'content',)
+        fields =('title', 'content', 'cover')
 
 class CommentForm(forms.ModelForm):
 

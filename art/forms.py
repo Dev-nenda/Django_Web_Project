@@ -12,7 +12,7 @@ class ArtForm(forms.ModelForm):
     
     class Meta:
         model = Art
-        fields = ('title', 'content')
+        fields = ('title', 'content', 'cover',)
 
 class CommentForm(forms.ModelForm):
     

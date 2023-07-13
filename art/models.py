@@ -17,6 +17,8 @@ class Art(models.Model):
 
     hits = models.PositiveIntegerField(default= 0)
 
+    cover = models.URLField(blank=True, null=True)
+
 class Comment(models.Model):
     content =models.CharField(max_length=100)
 
