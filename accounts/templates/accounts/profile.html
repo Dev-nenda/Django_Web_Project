@@ -14,17 +14,20 @@
 {% endfor %}
 
 {% if user.is_authenticated and profile_user != user %}
-
-<div>
-    <form action="{% url 'account:follow' profile_user.username %}" method="POST">
-        {% csrf_token %}
-        {% if is_following %}
-        <button>언팔로우</button>
-        {% else %}
-        <button>팔로우</button>
+    {% for group in profile_user.groups.all %}
+        {% if group.name != 'general' %}
+            <div>
+                <form action="{% url 'account:follow' profile_user.username %}" method="POST">
+                    {% csrf_token %}
+                    {% if is_following %}
+                    <button>언팔로우</button>
+                    {% else %}
+                    <button>팔로우</button>
+                    {% endif %}
+                </form>
+            </div>
         {% endif %}
-    </form>
-</div>
+    {% endfor %}
 {% endif %}
 
 {% for group in profile_user.groups.all %}

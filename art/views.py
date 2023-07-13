@@ -43,6 +43,10 @@ def art_detail(request, art_pk):
     is_like = art.like_users.filter(pk=request.user.pk).exists()
     is_clipping = art.clipping_users.filter(pk=request.user.pk).exists()
     comments = art.comments.all()
+
+    art.hits +=1
+    art.save()
+    
     return render(request, 'art/detail.html', {
         'art': art,
         'comments': comments,

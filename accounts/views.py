@@ -108,6 +108,9 @@ def set_general_permission(request):
 @require_http_methods(['GET', 'POST'])
 def delete(request, username):
     profile_user = get_object_or_404(User, username = username)
+    if request.user != profile_user:
+        from django.http import HttpResponseBadRequest
+        return HttpResponseBadRequest('안돼요!!')
     if request.user == profile_user:
         request.user.delete()
         auth_logout(request)
@@ -117,12 +120,13 @@ def delete(request, username):
 @require_http_methods(['GET', 'POST'])
 def update(request, username):
     profile_user = get_object_or_404(User, username=username)
-    if request.user == profile_user:
-        
-        
+    if request.user != profile_user:
+        from django.http import HttpResponseBadRequest
+        return HttpResponseBadRequest('안돼요!!')
+    
+    if request.user == profile_user:               
         if request.method == 'GET':
             form = CustomUserChangeForm(instance=request.user)
-
         else:
             form =CustomUserChangeForm(request.POST, instance=request.user)
             if form.is_valid():
@@ -138,6 +142,10 @@ def update(request, username):
 @login_required
 def change_password(request, username):
     profile_user = get_object_or_404(User, username=username)
+    if request.user != profile_user:
+        from django.http import HttpResponseBadRequest
+        return HttpResponseBadRequest('안돼요!!')
+
     if request.method == 'POST':
         password_change_form = CustomPasswordChangeForm(request.user, request.POST)
         if password_change_form.is_valid():

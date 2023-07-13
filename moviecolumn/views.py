@@ -49,6 +49,9 @@ def moviecolumn_detail(request, moviecolumn_pk):
     is_clipping = moviecolumn.clipping_users.filter(pk=request.user.pk).exists()
     comments = moviecolumn.comments.all()
 
+    moviecolumn.hits +=1
+    moviecolumn.save()
+
     return render(request, 'moviecolumn/detail.html', {
         'moviecolumn' : moviecolumn,
         'form' : form,
