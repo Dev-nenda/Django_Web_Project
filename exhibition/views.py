@@ -54,13 +54,13 @@ def exhibition_detail(request, exhibition_pk):
     expert_scores = 0.0
     expert_score = Expert_review.objects.filter(exhibition_id = exhibition.pk).aggregate(average_score=Avg("score"))
     if expert_score['average_score'] != None:
-        expert_scores = expert_score['average_score']
+        expert_scores = round(expert_score['average_score'], 1)
         
     
     general_scores = 0.0
     general_score = General_review.objects.filter(exhibition_id = exhibition.pk).aggregate(average_score=Avg("score"))
     if general_score['average_score'] != None:
-        general_scores = general_score['average_score']
+        general_scores = round(general_score['average_score'], 1)
 
 
     exeprt_reviews = exhibition.expert_reviews.all()

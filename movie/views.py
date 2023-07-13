@@ -8,6 +8,7 @@ from moviecolumn.models import Moviecolumn
 from moviecolumn.forms import MoviecolumnForm
 from django.core.paginator import Paginator
 
+
 from django.db.models import Avg, Sum
 
 
@@ -57,13 +58,13 @@ def movie_detail(request, movie_pk):
     expert_scores = 0.0
     expert_score = Expert_review.objects.filter(movie_id = movie.pk).aggregate(average_score=Avg("score"))
     if expert_score['average_score'] != None:
-        expert_scores = expert_score['average_score']
+        expert_scores = round(expert_score['average_score'], 1)
         
     
     general_scores = 0.0
     general_score = General_review.objects.filter(movie_id = movie.pk).aggregate(average_score=Avg("score"))
     if general_score['average_score'] != None:
-        general_scores = general_score['average_score']    
+        general_scores = round(general_score['average_score'], 1)    
     
     
     expert_reviews = movie.movie_expert_reviews.all()
@@ -135,7 +136,7 @@ def create_expert_review(request, movie_pk):
         expert_review.save()
 
         return redirect('movie:movie_detail', movie.pk)
-
+     
 @login_required
 @require_POST   
 def delete_expert_review(request, movie_pk, expert_review_pk):

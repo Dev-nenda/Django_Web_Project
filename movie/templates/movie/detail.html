@@ -12,17 +12,28 @@
     
     <div  style="margin-left: 30px;">
         
-        <h1>{{movie.title}}</h1>    
-        <p>소개:{{movie.introduction}}</p>
-        <p>감독:{{movie.director}}</p>
-        <p>출연진:{{movie.cast}}</p>
+        <h1>{{movie.title}}</h1>
+        {% include 'movie/like_movie_ui.html' %}    
+        <h3 style = "padding-top: 20px">소개</h3>
+        <p>{{movie.introduction}}</p>
+        
+        <h5>감독</h5>
+        <p>{{movie.director}}</p>
+        
+        <hr>
+        
+        <h5>출연진</h5>
+        <p>{{movie.cast | linebreaksbr}}</p>
         {% if movie.on_showing == True %}
         <p>
             <a href="{{movie.ticketing}}">{{movie.ticketing}}</a>
         </p>
         {% endif %}
-        <p>전문가평점: {{expert_score}}</p>
-        <p>회원 평점: {{general_score}}</p>              
+        <hr>
+        <div style="display: table-row;">
+            <p>전문가평점 {{expert_score}}</p>
+            <p>회원 평점 {{general_score}}</p>              
+        </div>
     </div>
 </div>
     
@@ -39,19 +50,31 @@
     
     <hr>
     
-    <!--리뷰 UI-->
-    {% include 'movie/detail_expert_review_ui.html' %}
-    {% include 'movie/detail_general_review_ui.html' %}
     
+  
     {% if user.is_authenticated %}
-    {% for group in user.groups.all %}
-    {% if   group.name == 'expert_movie' %}
-    <a href="{% url 'movie:create_moviecolumn' movie.pk %}">컬럼작성gogo</a> 
-    {% endif %}
-    {% endfor %}
+        {% for group in user.groups.all %}
+            {% if   group.name == 'expert_movie' %}
+                <a href="{% url 'movie:create_moviecolumn' movie.pk %}">
+                    <button type="button" class="btn btn-outline-dark">칼럼 작성하기</button>
+                </a> 
+            {% endif %}
+        {% endfor %}
     {% endif %}
 </div>
-    
-    
+
+<hr>
+
+ <!--리뷰 UI-->
+ <nav style="margin-bottom: 25px;">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">전문가 리뷰</button>
+      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">회원 리뷰</button>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">{% include 'movie/detail_expert_review_ui.html' %}</div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">{% include 'movie/detail_general_review_ui.html' %}</div>
+  </div>
 
 {% endblock content %}
