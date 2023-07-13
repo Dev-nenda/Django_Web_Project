@@ -15,23 +15,31 @@
 
 <hr>
 
-<ul>
-    {% for expert_review in expert_reviews %}
-    <li>
-        <a href="{% url 'account:profile' expert_review.author.username %}">
-            {{expert_review.author.username}}
-        </a>
-        : 
-        {{ expert_review.content}} |
+{% for expert_review in expert_reviews %}
+<div class="card">
+    <div class="card-header">
+        {{expert_review.author.username }}
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
         
-        평점 :{{expert_review.score}}
-
-        {% if user == expert_review.author %}
-        <form action="{% url 'exhibition:delete_expert_review' exhibition.pk expert_review.pk %}" method="POST">
-            {% csrf_token %}
-            <button>❌</button>
-        </form>
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
+        <p>{{ expert_review.content}}</p>
+        
+        <div class="d-flex justify-content-between">
+            <div >
+                <p>평점 : {{ expert_review.score }} </p>
+            </div>
+            <div >
+                {% if user == expert_review.author %}
+                <form action="{% url 'exhibition:delete_expert_review' exhibition.pk expert_review.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button class ="btn">delete</button>
+                </form> 
+                {% endif %}
+            </div>
+        </div>
+        
+        </blockquote>
+    </div>
+    </div>  
+{% endfor %}

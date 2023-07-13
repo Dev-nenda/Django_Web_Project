@@ -1,14 +1,14 @@
 {% if user == exhibition.owner %}
-<div>
+<div style="display: inline-block;">
     <a href="{% url 'exhibition:update_exhibition' exhibition.pk %}">
-        <button>수정하기</button>
+        <button type="button" class="btn btn-outline-dark">수정하기</button>
     </a>
 </div>
 
-<div>   
+<div style="display: inline-block;">   
     <form action="{% url 'exhibition:delete_exhibition' exhibition.pk %}" method="POST">
         {% csrf_token %}
-        <button onclick="return confirm('정말 삭제하시겠어요?')">삭제하기</button>
+        <button onclick="return confirm('정말 삭제하시겠어요?')"type="btn" class="btn btn-outline-dark"> 삭제하기</button>
     </form>
 </div>
 {% endif %}
