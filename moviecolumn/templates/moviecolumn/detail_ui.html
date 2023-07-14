@@ -1,43 +1,15 @@
 {% if user == moviecolumn.author %}
-<div>
+<div style="display: inline-block;">
     <a href="{% url 'moviecolumn:update_moviecolumn' moviecolumn.pk %}">
-        <button>수정하기</button>
+        <button type="button" class="btn btn-outline-dark">수정하기</button>
     </a>
 </div>
 
-<div>
+<div style="display: inline-block;">
     <form action="{% url 'moviecolumn:delete_moviecolumn' moviecolumn.pk %}" method="POST">
         {% csrf_token %}
-        <button>삭제하기</button>
+        <button onclick="return confirm('정말 삭제하시겠습니까?')" type="btn" class="btn btn-outline-dark">삭제하기</button>
     </form>
 </div>
-{% endif %}
-
-{% if user.is_authenticated  %}
-<div>
-    <form action="{% url 'moviecolumn:like_moviecolumn' moviecolumn.pk  %}" method="POST">
-        {% csrf_token %}
-
-        {% if is_like %}
-        <button>❤</button>
-        {% else %}
-        <button>🤍</button>
-        {% endif %}
-    </form>
-</div>
-<div>
-    <form action="{% url 'moviecolumn:clipping_moviecolumn' moviecolumn.pk %}" method="POST">
-        {% csrf_token %}
-
-        {% if is_clipping %}
-        <button>🗑</button>
-        {% else %}
-        <button>💾</button>
-        {% endif %}
-
-        
-    </form>
-</div>
-
 
 {% endif %}

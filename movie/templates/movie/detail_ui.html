@@ -5,10 +5,10 @@
     </a>
 </div>
 
-<div style="display: inline-block;">
+<div style="display: inline-block; ">
     <form action="{% url 'movie:delete_movie' movie.pk %}" method="POST">
         {% csrf_token %}
-        <button type="btn" class="btn btn-outline-dark">삭제하기</button>
+        <button onclick="return confirm('정말 삭제하시겠습니까?')" type="btn" class="btn btn-outline-dark">삭제하기</button>
     </form>
 </div>
 

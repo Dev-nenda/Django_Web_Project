@@ -1,29 +1,37 @@
 {% load bootstrap5 %}
 {% if user.is_authenticated %}
-
-<form action="{% url 'moviecolumn:create_comments' moviecolumn.pk %}" method="POST">
+<form action="{% url 'moviecolumn:create_comments' moviecolumn.pk %}" method="POST" >
     {% csrf_token %}
     {% bootstrap_form form%}
-    <button>작성</button>
-</form>
+    <button type="btn" class="btn btn-outline-dark">작성</button>
+</form> 
 {% endif %}
 
 <hr>
 
-<ul>
-    {% for comment in comments  %}
-    <li>
-        <a href="{% url 'account:profile' comment.author.username %}">
-            {{comment.author.username}}
-        </a>
-        :{{ comment.content}}
 
-        {% if user == comment.author %}
-        <form action="{% url 'moviecolumn:delete_comment' moviecolumn.pk comment.pk %}" method="POST">
-            {% csrf_token %}
-            <button>❌</button>
-        </form>
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
+{% for comment in comments  %}
+<div class="card" style="margin-top: 3px; background-color: rgba(245,243,236, 05);">
+    <div class="card-header">
+        {{comment.author.username }}
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <div class="d-flex justify-content-between">
+                <div >
+                    <p>{{comment.content}}</p>
+                </div>
+                <div>
+                    {% if user == comment.author %}
+                    <form action="{% url 'moviecolumn:delete_comment' moviecolumn.pk comment.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class ="btn">delete</button>
+                    </form> 
+                    {% endif %}
+                </div>
+            </div>
+
+        </blockquote>
+    </div>
+</div>      
+{% endfor %}

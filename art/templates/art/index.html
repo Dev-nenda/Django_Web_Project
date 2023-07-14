@@ -1,19 +1,36 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %}
 
 {% block content %}
-<h1>Art Column List</h1>
+<h1>ART Column List</h1>
 
-<ul>
-    {% for art in arts  %} 
-    <li>
-        <a href="{% url 'account:profile' art.author.username %}">
-            {{ art.author.username }}
-        </a>
-        <a href="{% url 'art:art_detail' art.pk %}">
-            {{ art.title }}
-        </a>
-    </li>
-    
-    {% endfor %}
-</ul>
-{% endblock content %}
+<hr>
+
+
+
+<div class="list-group"  aria-current="true" >
+{% for art in page_obj  %}
+  <div class="list-group-item p-4" style="border: none; border-bottom-width: thin; border-bottom-style: solid; border-bottom-color: gainsboro; background-color: rgba(245,243,236, 05);">
+    <div class="row">
+      <div class="col-9">
+          <a href="{% url 'art:art_detail' art.pk %}" class="text-decoration-none text-muted">
+            <h4>{{art.title}}</h4>
+            <div>
+              <small>{{art.summary}}</small>
+            </div>
+          </a>  
+        </div>
+        <div class="col-3"  >
+          <img src="{{art.cover}}" alt="cover" class="img-fluid" style="object-fit: cover">
+        </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="mt-5 d-flex justify-content-center">
+  {% bootstrap_pagination page_obj %}
+</div>
+
+
+{% endblock %}

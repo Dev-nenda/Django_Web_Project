@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_safe, require_POST, require_http_methods
 from django.contrib.auth.decorators import login_required
 
-
+from django.core.paginator import Paginator
 
 from .models import Art, Comment
 from .forms import ArtForm, CommentForm
@@ -32,10 +32,14 @@ def create_art(request):
 @require_safe
 def art_index(request):
     arts = Art.objects.all()
-    return render(request, 'art/index.html', {
-        'arts' : arts,
-    })
+    paginator = Paginator(arts, 6)  # arts 를 1페이지에 10개씩 묶음
+    page_number = request.GET.get("page")
 
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'art/index.html',{
+        'page_obj': page_obj,
+    })
+    
 @require_safe
 def art_detail(request, art_pk):
     art = get_object_or_404(Art, pk=art_pk)

@@ -13,6 +13,8 @@ class Moviecolumn(models.Model):
     clipping_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='clipping_moviecolumns')
     hits = models.PositiveIntegerField(default= 0)
     cover = models.URLField(blank=True, null=True)
+    summary = models.CharField(max_length=100,blank=True, null=True)
+
 class Comment(models.Model):
     content = models.CharField(max_length=100)
 

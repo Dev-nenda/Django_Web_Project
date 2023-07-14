@@ -1,0 +1,28 @@
+{% if user.is_authenticated  %}
+<div style="display: inline-block;">
+    <form action="{% url 'moviecolumn:like_moviecolumn' moviecolumn.pk  %}" method="POST">
+        {% csrf_token %}
+
+        {% if is_like %}
+        <button class="btn">❤</button>
+        {% else %}
+        <button class="btn">🤍</button>
+        {% endif %}
+    </form>
+</div>
+<div style="display: inline-block;">
+    <form action="{% url 'moviecolumn:clipping_moviecolumn' moviecolumn.pk %}" method="POST">
+        {% csrf_token %}
+
+        {% if is_clipping %}
+        <button class="btn">🗑</button>
+        {% else %}
+        <button class="btn">💾</button>
+        {% endif %}
+
+        
+    </form>
+</div>
+
+
+{% endif %}

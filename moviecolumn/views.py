@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST, require_http_methods, require_safe
 from django.contrib.auth.decorators import login_required
 
+from django.core.paginator import Paginator
+
 from .models import Moviecolumn, Comment
 from .forms import MoviecolumnForm, CommentForm
 
@@ -24,7 +26,6 @@ def create_moviecolumn(request):
             moviecolumn = form.save(commit=False)
             moviecolumn.author = request.user
             moviecolumn.save()
-
             return redirect('moviecolumn:moviecolumn_detail', moviecolumn.pk)
         
     return render(request, 'moviecolumn/form.html', {
@@ -35,10 +36,14 @@ def create_moviecolumn(request):
 @require_safe
 def moviecolumn_index(request):
     moviecolumns = Moviecolumn.objects.all()
-    return render(request, 'moviecolumn/index.html', {
-        'moviecolumns' : moviecolumns
-    })
+    paginator = Paginator(moviecolumns, 6)  # feeds 를 1페이지에 10개씩 묶음
+    page_number = request.GET.get("page")
 
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'moviecolumn/index.html',{
+        'page_obj': page_obj,
+    })
+    
 
 @require_safe
 def moviecolumn_detail(request, moviecolumn_pk):
@@ -132,7 +137,7 @@ def like_moviecolumn(request, moviecolumn_pk):
     else:
         moviecolumn.like_users.add(user)
 
-    return redirect('moviecolumn:moviecolum_detail', moviecolumn.pk)
+    return redirect('moviecolumn:moviecolumn_detail', moviecolumn.pk)
 
 def clipping_moviecolumn(request, moviecolumn_pk):
     moviecolumn = get_object_or_404(Moviecolumn, pk=moviecolumn_pk)

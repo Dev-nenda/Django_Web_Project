@@ -19,6 +19,8 @@ class Art(models.Model):
 
     cover = models.URLField(blank=True, null=True)
 
+    summary = models.CharField(max_length=100,blank=True, null=True)
+
 class Comment(models.Model):
     content =models.CharField(max_length=100)
 

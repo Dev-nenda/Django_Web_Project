@@ -1,24 +1,36 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %}
 
 {% block content %}
 <h1>Movie Column List</h1>
 
+<hr>
 
-{% for moviecolumn in moviecolumns  %}
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="{{moviecolumn.cover}}" class="img-fluid rounded-start" alt="cover">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">{{ moviecolumn.title}}</p>
-              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+
+
+<div class="list-group"  aria-current="true" >
+{% for moviecolumn in page_obj  %}
+  <div class="list-group-item p-4" style="border: none; border-bottom-width: thin; border-bottom-style: solid; border-bottom-color: gainsboro; background-color: rgba(245,243,236, 05);">
+    <div class="row">
+      <div class="col-9">
+          <a href="{% url 'moviecolumn:moviecolumn_detail' moviecolumn.pk %}" class="text-decoration-none text-muted">
+            <h4>{{moviecolumn.title}}</h4>
+            <div>
+              <small>{{moviecolumn.summary}}</small>
             </div>
-          </div>
+          </a>  
         </div>
-      </div>
-{% endfor %}
+        <div class="col-3"  >
+          <img src="{{moviecolumn.cover}}" alt="cover" class="img-fluid" style="object-fit: cover">
+        </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 
-{% endblock content %}
+<div class="mt-5 d-flex justify-content-center">
+  {% bootstrap_pagination page_obj %}
+</div>
+
+
+{% endblock %}
