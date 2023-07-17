@@ -5,5 +5,7 @@ app_name = 'home'
 
 urlpatterns = [
     # /home/
-    path('', views.home, name='home' )
+    path('', views.home, name='home' ),
+    #/search/
+    path('search/', views.search, name='search')
 ]

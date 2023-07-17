@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if searched %}       
+<h1> 검색하신 {{ searched }} 전체정보입니다. </h1>
+<hr>
+<ul class="list-group">
+        {% for exhibition in exhibitions %}        
+                <li class="list-group-item" style = "background-color: rgba(245,243,236, 05);">
+                        <a href="{% url 'exhibition:exhibition_detail' exhibition.pk %}" style = "text-decoration-line: none;" class="text-success">
+                                {{ exhibition.title }}
+                        </a>    
+                </li>
+        {% endfor %}      
+
+        {% for movie in movies  %}
+                <li class="list-group-item" style = "background-color: rgba(245,243,236, 05);">
+                        <a href="{% url 'movie:movie_detail' movie.pk %}" style = "text-decoration-line: none;" class="text-success">
+                                {{ movie.title }}
+                        </a>    
+                </li>
+        {% endfor %}
+        {% for moviecolumn in moviecolumns  %}
+                <li class="list-group-item" style = "background-color: rgba(245,243,236, 05);">
+                        <a href="{% url 'moviecolumn:moviecolumn_detail' moviecolumn.pk %}" style = "text-decoration-line: none;" class="text-success">
+                                {{ moviecolumn.title }}
+                        </a>    
+                </li>
+        {% endfor %}
+        {% for art in arts %}
+        <li class="list-group-item" style = "background-color: rgba(245,243,236, 05);">
+                <a href="{% url 'art:art_detail' art.pk %}" style = "text-decoration-line: none;" class="text-success">
+                        {{ art.title }}
+                </a>    
+        </li>
+        {% endfor %}
+</ul>
+{% else %}        
+<h1> 찾고 있는 정보를 검색창에 입력해주세요. </h1>
+{% endif %}
+{% endblock content %}
+
