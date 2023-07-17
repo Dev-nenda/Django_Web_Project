@@ -56,9 +56,11 @@ def logout(request):
 @require_safe
 def profile(request, username):
     profile_user = get_object_or_404(User, username=username)
+    is_following = request.user.stars.filter(pk=profile_user.pk).exists()
     
     return render(request, 'accounts/profile.html', {
         'profile_user': profile_user,
+        'is_following': is_following
     })
 
 @login_required

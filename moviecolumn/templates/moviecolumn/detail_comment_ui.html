@@ -13,7 +13,9 @@
 {% for comment in comments  %}
 <div class="card" style="margin-top: 3px; background-color: rgba(245,243,236, 05);">
     <div class="card-header">
-        {{comment.author.username }}
+        <a href="{% url 'account:profile' comment.author.username %}" style="text-decoration: none;" class="text-secondary">
+            {{comment.author.username }}
+        </a>
     </div>
     <div class="card-body">
         <blockquote class="blockquote mb-0">

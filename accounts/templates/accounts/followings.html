@@ -2,10 +2,16 @@
 {% block content %}
 <h1>Followings</h1>
 
-{% for following in followings  %}
-<li>
-    <a href="{% url 'account:profile' following.username %}" style = "text-decoration-line: none;">{{following.username}}</a>
-</li>
 
-{% endfor %}
+<ul class="list-group list-group-flush">
+    {% for following in followings  %}
+        <li class="list-group-item" style="background-color: rgba(245,243,236, 05);">
+            <a href="{% url 'account:profile' following.username %}" style = "text-decoration-line: none; " class="text-secondary">
+                {{following.username}}
+            </a>
+        </li>
+    
+    {% endfor %}
+</ul>
+
 {% endblock content %}

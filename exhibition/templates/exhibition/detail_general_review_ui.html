@@ -18,7 +18,9 @@
 {% for general_review in general_reviews %}
 <div class="card" style="margin-top: 3px; background-color: rgba(245,243,236, 05);">
     <div class="card-header">
-        {{general_review.author.username }}
+        <a href="{% url 'account:profile' general_review.author.username %}" style="text-decoration: none;" class="text-secondary">
+            {{general_review.author.username }}
+        </a>
     </div>
     <div class="card-body">
         <blockquote class="blockquote mb-0">

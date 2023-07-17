@@ -6,7 +6,11 @@
 </div>
 <hr>
 <div class="d-flex justify-content-between" style="margin-top: -9px; margin-bottom: -9px;">
-    <small style="margin-top: auto;">{{moviecolumn.author.username}}</small>
+    <small style="margin-top: auto;">
+        <a href="{% url 'account:profile' moviecolumn.author.username %}" style="text-decoration: none;" class="text-secondary">
+            {{moviecolumn.author.username}}
+        </a>
+    </small>
     <div>{% include 'moviecolumn/like_moviecolumn.html' %}</div>
 
 </div>

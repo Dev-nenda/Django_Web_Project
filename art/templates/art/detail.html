@@ -1,20 +1,4 @@
 {% extends 'base.html' %}
-{% comment %} {% extends 'base.html' %}
-
-{% block content %}
-<h1>{{art.title}}</h1>
-<h2>{{art.author.username}}</h2>
-
-<p>{{art.content | safe }}</p>
-<!--수정, 삭제, 좋아요, 스크랩 버튼-->
-{% include 'art/detail_ui.html' %}
-<hr>
-<!--댓글 UI-->
-{% include 'art/detail_comment_ui.html' %}
-
-{% endblock content %} {% endcomment %}
-
-
 
 {% block content %}
 <div class = "d-flex justify-content-between">
@@ -22,7 +6,11 @@
 </div>
 <hr>
 <div class="d-flex justify-content-between" style="margin-top: -9px; margin-bottom: -9px;">
-    <small style="margin-top: auto;">{{art.author.username}}</small>
+    <small style="margin-top: auto;">
+        <a href="{% url 'account:profile' art.author.username %}" style="text-decoration: none;" class="text-secondary">
+            {{art.author.username}}
+        </a>
+    </small>
     <div>{% include 'art/like_art.html' %}</div>
 
 </div>

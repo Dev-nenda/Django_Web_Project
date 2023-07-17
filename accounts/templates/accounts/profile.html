@@ -2,33 +2,39 @@
 
 {% block content %}
 <h1>{{profile_user.username}}의 프로필</h1>
+<hr>
 
-<div >
+<div class= "d-inline" style="margin-right: 10px; ">
     <a href="{% url 'account:followings' profile_user.username %}" style = "text-decoration-line: none;" class="text-secondary">Following : {{profile_user.stars.count}}</a>  
 </div>
-
-{% for group in profile_user.groups.all %}
-    {% if group.name != 'general' %}
-        <a href="{% url 'account:followers' profile_user.username %}" style = "text-decoration-line: none;" class="text-secondary">followers {{profile_user.fans.count}}</a> 
+    
+ <div class= "d-inline ">
+     {% for group in profile_user.groups.all %}
+         {% if group.name != 'general' %}
+             
+                 <a href="{% url 'account:followers' profile_user.username %}" style = "text-decoration-line: none;" class="text-secondary">Followers {{profile_user.fans.count}}</a> 
+             
+         {% endif %}
+     {% endfor %}
+ </div>   
+    
+<div style="padding-top: 10px;">
+    {% if user.is_authenticated and profile_user != user %}
+        {% for group in profile_user.groups.all %}
+            {% if group.name != 'general' %}                   
+                    <form action="{% url 'account:follow' profile_user.username %}" method="POST">
+                        {% csrf_token %}
+                            {% if is_following %}
+                                <button class="btn btn-outline-dark">언팔로우</button>
+                            {% else %}
+                                <button class="btn btn-outline-dark">널팔로우</button>
+                            {% endif %}
+                    </form>
+            {% endif %}
+        {% endfor %}
     {% endif %}
-{% endfor %}
+</div>   
 
-{% if user.is_authenticated and profile_user != user %}
-    {% for group in profile_user.groups.all %}
-        {% if group.name != 'general' %}
-            <div>
-                <form action="{% url 'account:follow' profile_user.username %}" method="POST">
-                    {% csrf_token %}
-                    {% if is_following %}
-                    <button>언팔로우</button>
-                    {% else %}
-                    <button>팔로우</button>
-                    {% endif %}
-                </form>
-            </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
 
 <hr>
 

@@ -17,7 +17,9 @@
 {% for expert_review in expert_reviews %}
 <div class="card" style="background-color: rgba(245,243,236, 05); margin-bottom: 5px;">
     <div class="card-header">
-        {{expert_review.author.username }}
+        <a href="{% url 'account:profile' expert_review.author.username %}"style="text-decoration: none;" class="text-secondary">
+            {{expert_review.author.username }}
+        </a>
     </div>
     <div class="card-body">
         <blockquote class="blockquote mb-0">
