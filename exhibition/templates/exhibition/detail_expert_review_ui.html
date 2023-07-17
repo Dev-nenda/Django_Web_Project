@@ -1,11 +1,12 @@
+{% load bootstrap5 %}
 
 {% if user.is_authenticated %}
     {% for group in user.groups.all %}
         {% if group.name == 'expert_art' %}
             <form action="{% url 'exhibition:create_expert_review' exhibition.pk %}" method="POST">
                 {% csrf_token %}
-                {{ expert_form }}
-                <button>작성</button>
+                {% bootstrap_form expert_form %}
+                <button class="btn btn-outline-dark">작성</button>
             </form>
         {% endif %}
     {% endfor %}
@@ -16,7 +17,7 @@
 <hr>
 
 {% for expert_review in expert_reviews %}
-<div class="card">
+<div class="card" style="margin-top: 3px; background-color: rgba(245,243,236, 05);">
     <div class="card-header">
         {{expert_review.author.username }}
     </div>

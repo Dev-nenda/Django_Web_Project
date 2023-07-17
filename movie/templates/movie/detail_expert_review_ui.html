@@ -1,10 +1,11 @@
+{% load bootstrap5 %}
 {% if user.is_authenticated %}
     {% for group in user.groups.all %}
         {% if group.name == 'expert_movie' %}
             <form action="{% url 'movie:create_expert_review' movie.pk %}" method="POST">
                 {% csrf_token %}
-                {{ expert_form }}
-                <button>작성</button>
+                {% bootstrap_form expert_form%}
+                <button class="btn btn-outline-dark">작성</button>
             </form>
         {% endif %}
     {% endfor %}

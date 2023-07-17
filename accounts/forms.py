@@ -6,7 +6,9 @@ from django import forms
 
 class CustomUserCreationForm(UserCreationForm):
     
-    phone_number = forms.CharField(max_length= 11)
+    phone_number = forms.CharField(max_length= 11, widget=forms.TextInput(attrs={
+        'placeholder' : '010XXXXXXXX',
+    }))
 
     class Meta:
         model = get_user_model()
