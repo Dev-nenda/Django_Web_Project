@@ -131,6 +131,26 @@
     {% endfor %}
 </ul>
 
+<hr>
+<h2>관심 영화, 전시</h2>
+<ul class="list-group">
+    {% for exhibition in profile_user.like_exhibitions.all %}        
+        <li class="list-group-item" style = "background-color: rgba(245,243,236, 05);">
+            <a href="{% url 'exhibition:exhibition_detail' exhibition.pk %}" style = "text-decoration-line: none;" class="text-success">
+                {{ exhibition.title }}
+            </a>    
+        </li>
+        {% endfor %}      
+    
+    {% for movie in profile_user.like_movies.all  %}
+        <li class="list-group-item" style = "background-color: rgba(245,243,236, 05);">
+            <a href="{% url 'movie:movie_detail' movie.pk %}" style = "text-decoration-line: none;" class="text-success">
+                {{ movie.title }}
+            </a>    
+        </li>
+    {% endfor %}
+</ul>
+
 
 <hr>
 

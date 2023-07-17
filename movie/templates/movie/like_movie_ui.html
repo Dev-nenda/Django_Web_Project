@@ -4,11 +4,12 @@
         {% csrf_token %}
         
         {% if is_like  %}
-        <button class="btn">❤</button>        
+        <button class="btn" style="margin-bottom: 2px;">❤</button>        
         {% else %}
-        <button class="btn">🤍</button>
+        <button class="btn" style="margin-bottom: 2px;">🤍</button>
         {% endif %}
 
     </form>
 </div>
+{{movie.like_users.count}}
 {% endif %}
