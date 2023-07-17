@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class = "d-flex justify-content-between">
+    <h1>{{notice.title}}</h1>      
+</div>
+<hr>
+<div class="d-flex justify-content-between" style="margin-top: -9px; margin-bottom: -9px;">
+    <small style="margin-top: auto;">
+        <a href="{% url 'account:profile' notice.author.username %}" style="text-decoration: none;" class="text-secondary">
+            {{notice.author.username}}
+        </a>
+    </small>
+
+</div>
+<hr>
+
+<div style="line-height: 2.1;">
+    <p >{{notice.content | linebreaksbr}}</p>
+</div>
+
+<hr>
+
+<!--수정 삭제 좋아요 스크랩 버튼-->
+{% include 'notice/detail_ui.html' %}
+
+
+{% endblock content %}

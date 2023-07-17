@@ -1,0 +1,15 @@
+{% if user == notice.author %}
+<div style="display: inline-block;">
+    <a href="{% url 'notice:update_notice' notice.pk %}">
+        <button type="button" class="btn btn-outline-dark">수정하기</button>
+    </a>
+</div>
+
+<div style="display: inline-block;">
+    <form action="{% url 'notice:delete_notice' notice.pk %}" method="POST">
+        {% csrf_token %}
+        <button onclick="return confirm('정말 삭제하시겠습니까?')" type="btn" class="btn btn-outline-dark">삭제하기</button>
+    </form>
+</div>
+
+{% endif %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<h1>NOTICE</h1>
+
+<hr>
+
+
+
+<div class="list-group"  aria-current="true" >
+{% for notice in page_obj  %}
+    <div class="list-group-item p-4" style="border: none; border-bottom-width: thin; border-bottom-style: solid; border-bottom-color: gainsboro; background-color: rgba(245,243,236, 05);">
+        <div>
+          <a href="{% url 'notice:notice_detail' notice.pk %}" class="text-decoration-none text-muted">
+            <h4>{{notice.title}}</h4> 
+          </a>  
+        </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="mt-5 d-flex justify-content-center">
+  {% bootstrap_pagination page_obj %}
+</div>
+
+
+{% endblock %}

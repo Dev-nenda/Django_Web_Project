@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'movie',
     'moviecolumn',
     'home',
+    'notice',
 
 ]
 
