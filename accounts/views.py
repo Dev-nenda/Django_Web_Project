@@ -140,6 +140,7 @@ def update(request, username):
     
 
 @login_required
+@require_http_methods(['GET', 'POST'])
 def change_password(request, username):
     profile_user = get_object_or_404(User, username=username)
     if request.user != profile_user:

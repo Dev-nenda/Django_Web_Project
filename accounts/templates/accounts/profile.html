@@ -3,13 +3,13 @@
 {% block content %}
 <h1>{{profile_user.username}}의 프로필</h1>
 
-<div>
-    <a href="{% url 'account:followings' profile_user.username %}">Following</a>: {{profile_user.stars.count}}
+<div >
+    <a href="{% url 'account:followings' profile_user.username %}" style = "text-decoration-line: none;" class="text-secondary">Following : {{profile_user.stars.count}}</a>  
 </div>
 
 {% for group in profile_user.groups.all %}
     {% if group.name != 'general' %}
-        <a href="{% url 'account:followers' profile_user.username %}">followers</a>: {{profile_user.fans.count}}
+        <a href="{% url 'account:followers' profile_user.username %}" style = "text-decoration-line: none;" class="text-secondary">followers {{profile_user.fans.count}}</a> 
     {% endif %}
 {% endfor %}
 
@@ -30,78 +30,99 @@
     {% endfor %}
 {% endif %}
 
+<hr>
+
+
 {% for group in profile_user.groups.all %}
     {% if group.name == 'gallery' %}
         <h2>전시 현황</h2>
-        <ul>
+
+        <ul class="list-group">
             {% for exhibition in profile_user.exhibitions.all  %}
-            <li>
-                <a href="{% url 'exhibition:exhibition_detail' exhibition.pk %}">
+            <li class="list-group-item" style = "background-color: rgba(245,243,236, 05);" >
+                <a href="{% url 'exhibition:exhibition_detail' exhibition.pk %}" style = "text-decoration-line: none;" class="text-success">
                     {{ exhibition.title }}
                 </a>
+
             </li>
-            {% endfor %}
-        </ul>       
+            {% endfor %}            
+        </ul>             
     {% endif %}
 {% endfor %}
 <hr>
+
 {% for group in profile_user.groups.all  %}
-        {% if group.name == 'expert_art' %}
-            <h2>Art Columns</h2>
-            <ul>
+    {% if group.name == 'expert_art' %}
+        <h2>Art Columns</h2>
+            <ul class="list-group">
                 {% for art in profile_user.arts.all  %}
-                <li>
-                    <a href="{% url 'art:art_detail' art.pk %}">
-                        {{art.title}}
-                    </a>
+                    <li class="list-group-item" style = "background-color: rgba(245,243,236, 05);">
+                        <a href="{% url 'art:art_detail' art.pk %}" style = "text-decoration-line: none;" class="text-success">
+                            {{art.title}}
+                        </a>
+    
                 </li>
                 {% endfor %}
             </ul>
-        {% endif %}
+    {% endif %}
 {% endfor %}
+
 <hr>
+
 {% for group in profile_user.groups.all  %}
-        {% if group.name == 'expert_movie' %}
-            <h2>Movie Columns</h2>
-            <ul>
+    {% if group.name == 'expert_movie' %}
+        <h2>Movie Columns</h2>            
+            <ul class="list-group">
                 {% for moviecolumn in profile_user.moviecolumns.all  %}
-                <li>
-                    <a href="{% url 'moviecolumn:moviecolumn_detail' moviecolumn.pk %}">
-                        {{moviecolumn.title}}
-                    </a>
-                </li>
+                    <li class="list-group-item" style = "background-color: rgba(245,243,236, 05);">
+                        <a href="{% url 'moviecolumn:moviecolumn_detail' moviecolumn.pk %}" style = "text-decoration-line: none;" class="text-success">
+                            {{moviecolumn.title}}
+                        </a>    
+                    </li>
                 {% endfor %}
             </ul>
-        {% endif %}
+    {% endif %}
 {% endfor %}
 <hr>
 
 <h2>스크랩</h2>
-<ul>
+<ul class="list-group">
     {% for art in profile_user.clipping_arts.all %}
-        <li>
-            <a href="{% url 'art:art_detail' art.pk %}">
-                {{ art.title }}
-            </a>
-        </li>
+        {% for moviecolumn in profile_user.moviecolumns.all  %}
+            <li class="list-group-item" style = "background-color: rgba(245,243,236, 05);">
+                <a href="{% url 'art:art_detail' art.pk %}" style = "text-decoration-line: none;" class="text-success">
+                    {{ art.title }}
+                </a>    
+            </li>
+        {% endfor %}      
     {% endfor %}
 </ul>
+
+
 <hr>
+
+
 {% if user == profile_user %}
 
+<div class= "d-inline ">
+    <a href="{% url 'account:change_password' profile_user.username %}" style="text-decoration-line: none;">
+        <button type="btn" class="btn btn-outline-dark">비밀번호 변경</button>
+    </a>
+</div>
 
-<a href="{% url 'account:change_password' profile_user.username %}">
-    <button>비밀번호 변경</button>
-</a>
+<div class= "d-inline ">
+    <a href="{% url 'account:update' profile_user.username %}" style="text-decoration-line: none;">
+        <button type="btn" class="btn btn-outline-dark">정보수정</button>    
+    </a>
+</div>
 
-
-<a href="{% url 'account:update' profile_user.username %}">
-    <button>정보수정</button>
-</a>
-<a href="{% url 'account:delete' profile_user.username %}">
-    <button onclick="return confirm('정말 삭제하시겠습니까?')">회원탈퇴</button>
-</a>
+<div class= "d-inline ">
+    <a href="{% url 'account:delete' profile_user.username %}" style="text-decoration-line: none;">
+        <button onclick="return confirm('정말 삭제하시겠습니까?')" type="btn" class="btn btn-outline-dark">회원탈퇴</button>
+    </a>
+</div>
 
 
 {% endif %}
+
 {% endblock content %}

@@ -4,7 +4,7 @@
 
 {% for follower in followers  %}
 <li>
-    <a href="{% url 'account:profile' follower.username %}">{{follower.username}}</a>
+    <a href="{% url 'account:profile' follower.username %}" style = "text-decoration-line: none;">{{follower.username}}</a>
 </li>
 
 {% endfor %}
