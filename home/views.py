@@ -20,8 +20,8 @@ def home(request):
     })
 
 def search(request):
-    if request.method == 'POST':
-        searched = request.POST['searched']        
+    if request.method == 'GET':
+        searched = request.GET['searched']        
         movies = Movie.objects.filter(title__contains=searched)
         exhibitions = Exhibition.objects.filter(title__contains=searched)
         moviecolumns = Moviecolumn.objects.filter(title__contains=searched)

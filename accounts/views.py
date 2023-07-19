@@ -52,7 +52,8 @@ def logout(request):
 
     auth_logout(request)
     return redirect('home')
-    
+
+@login_required    
 @require_safe
 def profile(request, username):
     profile_user = get_object_or_404(User, username=username)
