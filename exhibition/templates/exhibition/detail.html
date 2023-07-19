@@ -11,8 +11,8 @@
         
    <hr>
     
-    <div style="display: flex;">
-      <div>
+    <div class="row">
+      <div class="col-9">
         <h3 style="margin-top: 20px">전시소개</h3>
         <p>{{exhibition.introduction | linebreaksbr}}</p>
         
@@ -26,14 +26,18 @@
         <p>{{exhibition.schedule}}</p>            
       </div>
       
-      <div>
+      <div class="col-3">
           <img src="{{exhibition.poster}}" class="img-fluid" alt="poster" >
       </div>
     </div>
     <hr>
     
     <p>{{exhibition.location}}</p>
-    <p><a href="{{exhibition.ticketing}}">{{exhibition.ticketing}}</a></p>
+
+
+    <p>Ticketing:<a href="{{exhibition.ticketing}}">{{exhibition.ticketing}}</a></p>
+    
+    <hr>
     
     <p>전문가 평점: {{expert_score}}</p>
     <p>회원 평점 :{{general_score}}</p>
