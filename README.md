@@ -1,1 +1,1 @@
-# MY_PROJECT
+# Django_Web_Project
